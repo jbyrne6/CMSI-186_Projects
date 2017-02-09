@@ -1,14 +1,14 @@
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *  File name     :  StringStuffTester.java
- *  Purpose       :  A test harness file for testing out the methods in the "StringStuff.java" class
- *  Author        :  B.J. Johnson
- *  Date          :  2017-01-25
- *  Description   :  This file provides the "test harness" for checking out the methods which are part of
- *                   the homework02 assignment.  It also provides examples of proper documentation, and
- *                   uses the source file header template as specified in the "Greeter.java" template file
- *                   for use in CMSI 186, Spring 2017.
- *  Notes         :  TEMPLATE FILE ONLY: Your job is to fill in as many test cases as you think are needed
- *                   to thoroughly and completely test your StringStuff class.
+ *  File name     :  StringStuff.java
+ *  Purpose       :  A file full of stuff to do with the Java String class
+ *  Author        :  Jimmy Byrne
+ *  Date          :  2017-02-01
+ *  Description   :  This file presents a bunch of String-style helper methods.  Although pretty much
+ *                   any and every thing you'd want to do with Strings is already made for you in the
+ *                   Jave String class, this exercise gives you a chance to do it yourself [DIY] for some
+ *                   of it and get some experience with designing code that you can then check out using
+ *                   the real Java String methods [if you want]
+ *  Notes         :  None
  *  Warnings      :  None
  *  Exceptions    :  None
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -16,7 +16,8 @@
  *  ----------------
  *            Rev      Date     Modified by:  Reason for change/modification
  *           -----  ----------  ------------  -----------------------------------------------------------
- *  @version 1.0.0  2017-01-25  B.J. Johnson  Initial writing and release
+ *  @version 1.0.0  2017-02-07  Jimmy Byrne  Uploaded partialally complete to github
+ *  @version 1.1.0  2017-02-08  Jimmy Byrne Final product upload to github
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 public class StringStuffTester {
@@ -103,35 +104,91 @@ public class StringStuffTester {
 	 
 	 System.out.print("   Test for Paul: ");
 	 try{System.out.println(StringStuff.evensOnly("Paul").equals("pl") ? "pl" : "not working"); }
-	 catch(Exception e) {System.out.println(false);}	
+	 catch(Exception e) {System.out.println(false);}
+
+	 System.out.print("   Test for Mongolia: ");
+	 try{System.out.println(StringStuff.evensOnly("Mongolia").equals("nl") ? "nl" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
+
+     System.out.print("   Test for star wars: ");
+	 try{System.out.println(StringStuff.evensOnly("star wars").equals("trr") ? "trr" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}		 
    }
 
   /**
    * test method to test out the operation of the oddsOnly method
    */
    public static void test_oddsOnly() {
+     System.out.println("\nTESTS FOR oddsOnly():");
+	 
+	 System.out.print("   Test for Paul: ");
+	 try{System.out.println(StringStuff.oddsOnly("Paul").equals("au") ? "au" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
+	 
+	 System.out.print("   Test for Mongolia: ");
+	 try{System.out.println(StringStuff.oddsOnly("Mongolia").equals("mogoia") ? "mogoia" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
 
+     System.out.print("   Test for star wars: ");
+	 try{System.out.println(StringStuff.oddsOnly("star wars").equals("sawas") ? "sawas" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
    }
 
   /**
    * test method to test out the operation of the evensOnlyNoDupes method
    */
    public static void test_evensOnlyNoDupes() {
-
+     System.out.println("\nTESTS FOR evensOnlyNoDupes():");
+	 
+	 System.out.print("   Test for star wars: ");
+	 try{System.out.println(StringStuff.evensOnlyNoDupes("star wars").equals("tr") ? "tr" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
+	 
+	 System.out.print("   Test for baloon: ");
+	 try{System.out.println(StringStuff.evensOnlyNoDupes("baloon").equals("bln") ? "bln" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
+	 
+	 System.out.print("   Test for platypus: ");
+	 try{System.out.println(StringStuff.evensOnlyNoDupes("platypus").equals("plt") ? "plt" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
    }
 
   /**
    * test method to test out the operation of the oddsOnlyNoDupes method
    */
    public static void test_oddsOnlyNoDupes() {
-
+     System.out.println("\nTESTS FOR oddsOnlyNoDupes():");
+	 
+	 System.out.print("   Test for balloon: ");
+	 try{System.out.println(StringStuff.oddsOnlyNoDupes("balloon").equals("ao") ? "ao" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
+	 
+	 System.out.print("   Test for Brian is the best.: ");
+	 try{System.out.println(StringStuff.oddsOnlyNoDupes("Brian is the best.").equals("iase") ? "iase" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
+	 
+	 System.out.print("   Test for I LIKE PANCAKES!: ");
+	 try{System.out.println(StringStuff.oddsOnlyNoDupes("I LIKE PANCAKES!").equals("ikeacs") ? "ikeacs" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
    }
 
   /**
    * test method to test out the operation of the reverse method
    */
    public static void test_reverse() {
-
+     System.out.println("\nTESTS FOR reverse():");
+	 
+	 System.out.print("   Test for Jimmy: ");
+	 try{System.out.println(StringStuff.reverse("Jimmy").equals("ymmiJ") ? "ymmiJ" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
+	 
+	 System.out.print("   Test for This is not a palendrome.: ");
+	 try{System.out.println(StringStuff.reverse("This is not a palendrome.").equals(".emordnelap a ton si sihT") ? ".emordnelap a ton si sihT" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
+	 
+	 System.out.print("   Test for 123456: ");
+	 try{System.out.println(StringStuff.reverse("123456").equals("654321") ? "654321" : "not working"); }
+	 catch(Exception e) {System.out.println(false);}
    }
 
 }

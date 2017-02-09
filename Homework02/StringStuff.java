@@ -1,8 +1,8 @@
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *  File name     :  StringStuff.java
  *  Purpose       :  A file full of stuff to do with the Java String class
- *  Author        :  B.J. Johnson
- *  Date          :  2017-01-19
+ *  Author        :  Jimmy Byrne
+ *  Date          :  2017-02-01
  *  Description   :  This file presents a bunch of String-style helper methods.  Although pretty much
  *                   any and every thing you'd want to do with Strings is already made for you in the
  *                   Jave String class, this exercise gives you a chance to do it yourself [DIY] for some
@@ -16,8 +16,8 @@
  *  ----------------
  *            Rev      Date     Modified by:  Reason for change/modification
  *           -----  ----------  ------------  -----------------------------------------------------------
- *  @version 1.0.0  2017-01-19  B.J. Johnson  Initial writing and release
- *  @version 1.1.0  2017-01-22  B.J. Johnson  Fill in methods to make the program actually work
+ *  @version 1.0.0  2017-02-07  Jimmy Byrne  Uploaded partialally complete to github
+ *  @version 1.1.0  2017-02-08  Jimmy Byrne Final product upload to github
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 import java.util.Set;
 import java.util.LinkedHashSet;
@@ -111,6 +111,7 @@ public class StringStuff {
    */
    public static String evensOnly( String s ) {
 	  s = s.toLowerCase();
+	  s = s.replaceAll(" ","");
 	  String even = "";
 	  for (int i=0; i<s.length(); i++){
 		  switch(s.charAt(i)){
@@ -168,7 +169,54 @@ public class StringStuff {
    * @return  String containing the &quot;odd&quot; letters from the input
    */
    public static String oddsOnly( String s ) {
-      return new String( "IKIKIK" );
+      s = s.toLowerCase();
+	  s = s.replaceAll(" ","");
+	  String odd = "";
+	  for (int i=0; i<s.length(); i++){
+		  switch(s.charAt(i)){
+			  case 'a': 
+			  odd = odd.concat("a");
+			  continue;
+			  case 'c': 
+			  odd = odd.concat("c");
+			  continue;
+			  case 'e': 
+			  odd = odd.concat("e");
+			  continue;
+			  case 'g': 
+			  odd = odd.concat("g");
+			  continue;
+			  case 'i': 
+			  odd = odd.concat("i");
+			  continue;
+			  case 'k': 
+			  odd = odd.concat("k");
+			  continue;
+			  case 'm': 
+			  odd = odd.concat("m");
+			  continue;
+			  case 'o': 
+			  odd = odd.concat("o");
+			  continue;
+			  case 'q': 
+			  odd = odd.concat("q");
+			  continue;
+			  case 's': 
+			  odd = odd.concat("s");
+			  continue;
+			  case 'u': 
+			  odd = odd.concat("u");
+			  continue;
+			  case 'w': 
+			  odd = odd.concat("w");
+			  continue;
+			  case 'y': 
+			  odd = odd.concat("y");
+			  continue;
+			  
+		  }
+	  }
+	  return odd;
    }
 
   /**
@@ -179,7 +227,19 @@ public class StringStuff {
    * @return  String containing the &quot;even&quot; letters from the input without duplicates
    */
    public static String evensOnlyNoDupes( String s ) {
-      return new String( "HJ" );
+      String evenstring = evensOnly(s);
+	  for(int i=0;i<evenstring.length()-1;i++){
+		  for(int j=i+1;j<evenstring.length();j++){
+			  if(evenstring.charAt(i) == evenstring.charAt(j)){
+				  StringBuffer sb = new StringBuffer(evenstring);
+				  sb.setCharAt(j,' ');
+				  evenstring = sb.toString();
+				  continue;
+			  }
+		  }
+	  }
+	  evenstring = evenstring.replaceAll(" ","");
+	  return evenstring;
    }
 
   /**
@@ -190,7 +250,19 @@ public class StringStuff {
    * @return  String containing the &quot;odd&quot; letters from the input without duplicates
    */
    public static String oddsOnlyNoDupes( String s ) {
-      return new String( "IK" );
+      String oddstring = oddsOnly(s);
+	  for(int i=0;i<oddstring.length()-1;i++){
+		  for(int j=i+1;j<oddstring.length();j++){
+			  if(oddstring.charAt(i) == oddstring.charAt(j)){
+				  StringBuffer sb = new StringBuffer(oddstring);
+				  sb.setCharAt(j,' ');
+				  oddstring = sb.toString();
+				  continue;
+			  }
+		  }
+	  }
+	  oddstring = oddstring.replaceAll(" ","");
+	  return oddstring;
    }
 
   /**
@@ -200,7 +272,11 @@ public class StringStuff {
    * @return  String containing the reverse of the input string
    */
    public static String reverse( String s ) {
-      return new String( "kculc eht tahw" );
+	  String rstring = "";
+      for(int i=s.length()-1;i>=0;i--){
+		  rstring = rstring.concat(Character.toString(s.charAt(i)));
+	  }
+	  return rstring;
    }
 
   /**
