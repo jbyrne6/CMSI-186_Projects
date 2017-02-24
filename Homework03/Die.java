@@ -27,7 +27,7 @@
  *  Warnings      :  None
  *  Exceptions    :  IllegalArgumentException when the number of sides or pips is out of range
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *  Revision Histor
+ *  Revision History
  *  ---------------
  *            Rev      Date     Modified by:  Reason for change/modification
  *           -----  ----------  ------------  -----------------------------------------------------------
@@ -41,7 +41,6 @@ public class Die {
    private int sides;
    private int pips;
    private final int MINIMUM_SIDES = 4;
-   private int dieValue;
 
    // public constructor:
   /**
@@ -51,10 +50,12 @@ public class Die {
    * Note: parameter must be checked for validity; invalid value must throw "IllegalArgumentException"
    */
    public Die( int nSides ) {
+	  
 	  if (nSides < 4){
 		System.out.println( "Your dice must have at least 4 sides." ); 
 	  }else{
 		  sides = nSides;
+		  this.pips = 1;
 	  }
    }
 
@@ -64,38 +65,20 @@ public class Die {
    * @throws  IllegalArgumentException
    */
    public int roll() {
-      int dieValue = (int) (Math.ceil(Math.random() * sides));
-      return dieValue;
+      pips = (int) (Math.ceil(Math.random() * sides));
+      return pips;
    }
 
   /**
    * @return the side count of THIS die instance
    */
-   public int getSides() {
-      return -1;
-   }
-
-  /**
-   * @return the pip count of THIS die instance; whatever is on top when the die stops rolling
-   */
-   public int getValue() {
-      return dieValue;
-   }
-   
-   public int setValue(int kValue){
-	   kValue = dieValue;
-	   return kValue;
-   }
-   
-  /**
-   * @param  int  the number of sides to set/reset for this Die instance
-   * @return      The new number of sides, in case anyone is looking
-   * @throws      IllegalArgumentException
-   */
-   public int setSides( int sides ) {
+   public int getSides(int sides) {
+	  this.sides = sides;
       return sides;
    }
- 
+   public int getValue(){
+	   return pips;
+   }
 
   /**
    * @return Public Instance method that returns a String representation of THIS die instance
