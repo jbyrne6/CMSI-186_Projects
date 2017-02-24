@@ -1,8 +1,8 @@
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *  File name     :  DiceSet.java
  *  Purpose       :  Provides a class describing a set of dice
- *  Author        :  B.J. Johnson
- *  Date          :  2017-02-09
+ *  Author        :  James Byrne
+ *  Date          :  2017-02-23
  *  Description   :  This class provides everything needed (pretty much) to describe a set of dice.  The
  *                   idea here is to have an implementing class that uses the Die.java class.  Includes
  *                   the following:
@@ -26,7 +26,7 @@
  *  ---------------
  *            Rev      Date     Modified by:  Reason for change/modification
  *           -----  ----------  ------------  -----------------------------------------------------------
- *  @version 1.0.0  2017-02-09  B.J. Johnson  Initial writing and release
+ *  @version 1.0.0  2017-02-23  James Byrne  Initial writing and release
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 public class DiceSet {
 
@@ -115,13 +115,18 @@ public class DiceSet {
    * @return  tru iff this set is identical to the set passed as an argument
    */
    public boolean isIdentical( DiceSet ds ) {
-	return true;
+	if(ds == ds){
+		return true;
+	}else{
+		return false;
+	}
    }
   /**
    * A little test main to check things out
    */
    public static void main( String[] args ) {
-      DiceSet ds = new DiceSet(5, 6);
+      
+	  DiceSet ds = new DiceSet(5, 6);
 	  ds.roll();
 	  System.out.println(ds.toString());
 	  System.out.println(ds.sum());

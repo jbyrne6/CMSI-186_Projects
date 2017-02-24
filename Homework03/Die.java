@@ -1,8 +1,8 @@
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *  File name     :  Die.java
  *  Purpose       :  Provides a class describing a single die that can be rolled
- *  @author       :  B.J. Johnson
- *  Date          :  2017-02-06
+ *  @author       :  James Byrne
+ *  Date          :  2017-02-23
  *  Description   :  This class provides the data fields and methods to describe a single game die.  A
  *                   die can have "N" sides.  Sides are randomly assigned sequential pip values, from 1
  *                   to N, with no repeating numbers.  A "normal" die would thus has six sides, with the
@@ -31,7 +31,7 @@
  *  ---------------
  *            Rev      Date     Modified by:  Reason for change/modification
  *           -----  ----------  ------------  -----------------------------------------------------------
- *  @version 1.0.0  2017-02-06  B.J. Johnson  Initial writing and release
+ *  @version 1.0.0  2017-02-23  James Byrne  Initial writing and release
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 public class Die {
 
@@ -85,14 +85,17 @@ public class Die {
    * @throws UnsupportedOperationException
    */
    public String toString() {
-      return "";
+	  String pipsString = "";
+	  pipsString = "[" + Integer.toString(pips) + "]";
+	  return pipsString;
    }
 
   /**
    * @return Class-wide method that returns a String representation of THIS die instance
    */
    public static String toString( Die d ) {
-      return "";
+      String dString = d.toString();
+	  return dString;
    }
 
   /**
@@ -101,6 +104,19 @@ public class Die {
    public static void main( String[] args ) {
       Die d = new Die( 4 );
 	  System.out.println("The 4 sided die rolled: " + d.roll());
+	  System.out.println("The pips in string form is: " + d.toString());
+	  d = new Die( -1 );
+	  System.out.println("The -1 sided die rolled: " + d.roll());
+	  System.out.println("The pips in string form is: " + d.toString());
+	  d = new Die( 10 );
+	  System.out.println("The 10 sided die rolled: " + d.roll());
+	  System.out.println("The pips in string form is: " + d.toString());
+	  d = new Die( 100 );
+	  System.out.println("The 100 sided die rolled: " + d.roll());
+	  System.out.println("The pips in string form is: " + d.toString());
+	  d = new Die( 1000 );
+	  System.out.println("The 1000 sided die rolled: " + d.roll());
+	  System.out.println("The pips in string form is: " + d.toString());
       System.out.println( "Hello from the Die class main method!" );
    }
 
