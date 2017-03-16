@@ -2,7 +2,7 @@
  *  File name     :  Clock.java
  *  Purpose       :  Provides a class defining methods for the ClockSolver class
  *  @author       :  James Byrne
- *  Date written  :  2017-03-02
+ *  Date written  :  2017-03-15
  *  Description   :  This class provides a bunch of methods which may be useful for the ClockSolver class
  *                   for Homework 4, part 1.  Includes the following:
  *
@@ -14,7 +14,7 @@
  *  ---------------
  *            Rev      Date     Modified by:  Reason for change/modification
  *           -----  ----------  ------------  -----------------------------------------------------------
- *  @version 1.0.0  2017-03-02  James Byrne  Initial writing and release
+ *  @version 1.0.0  2017-03-15  James Byrne  Initial writing and release
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 public class Clock{
    private static final double DEFAULT_TIME_SLICE_IN_SECONDS = 60.0;
@@ -124,7 +124,7 @@ public class Clock{
    *  @return double-precision value of the angle between the two hands
    */
    public double getHandAngle() {
-       this.angle = Math.abs(hourAngle-minuteAngle);
+       this.angle = Math.abs(getMinuteHand()-getHourHand());
 	   return this.angle;
    }
    
@@ -134,17 +134,6 @@ public class Clock{
    *  @return String value of the current clock
    */
    public String toString() {
-/**
-   if(seconds < 60){
-		  seconds = seconds + slice;
-		  if(seconds < 3600){
-			  minutes = minutes + Math.floor(slice/60);
-			  if(seconds < 43200){
-				  hours = hours + Math.floor(slice/3600);
-			  }
-		  }
-	  }
-*/
 
 	  if(totalSeconds < 60){
 		  seconds = totalSeconds;
@@ -176,11 +165,11 @@ public class Clock{
       System.out.println( "\nCLOCK CLASS TESTER PROGRAM\n" +
                           "--------------------------\n" );
       System.out.println( "  Creating a new clock: " );
-      Clock clock = new Clock(90,60);
+      Clock clock = new Clock(90.0,90.0);
       System.out.println( "    New clock created: " + clock.toString() );
-      System.out.println( "    Testing validateAngleArg()....");
-      System.out.print( "      sending '  0 degrees', expecting double value   0.0" );
-      try { System.out.println( (0.0 == clock.validateAngleArg( "0.0" )) ? " - got   0.0" : " - no joy" ); }
+      System.out.println( "    Testing validateAngleArg(90.0)....");
+      System.out.print( "      sending '  90.0 degrees', expecting double value   90.0" );
+      try { System.out.println( (0.0 == clock.validateAngleArg( "90.0" )) ? " - got   90.0" : " - no joy" ); }
       catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
    }
 }

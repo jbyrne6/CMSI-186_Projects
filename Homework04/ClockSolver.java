@@ -2,8 +2,8 @@
  *  File name     :  ClockSolver.java
  *  Purpose       :  The main program for the ClockSolver class
  *  @see
- *  @author       :  B.J. Johnson
- *  Date written  :  2017-02-28
+ *  @author       :  James Byrne
+ *  Date written  :  2017-03-15
  *  Description   :  This class provides a bunch of methods which may be useful for the ClockSolver class
  *                   for Homework 4, part 1.  Includes the following:
   *
@@ -15,7 +15,7 @@
  *  ---------------
  *            Rev      Date     Modified by:  Reason for change/modification
  *           -----  ----------  ------------  -----------------------------------------------------------
- *  @version 1.0.0  2017-02-28  B.J. Johnson  Initial writing and release
+ *  @version 1.0.0  2017-03-15  James Byrne  Initial writing and release
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 public class ClockSolver {
@@ -39,7 +39,7 @@ public class ClockSolver {
    *  Method to handle all the input arguments from the command line
    *   this sets up the variables for the simulation
    */
-   /**
+
    public void handleInitialArguments( String args[] ) {
      // args[0] specifies the angle for which you are looking
      //  your simulation will find all the angles in the 12-hour day at which those angles occur
@@ -48,8 +48,9 @@ public class ClockSolver {
 
 	  double arg0 = Double.parseDouble(args[0]);
 	  double arg1 = Double.parseDouble(args[1]);
+	  Clock clock = new Clock(arg0,arg1);
       System.out.println( "\n   Hello world, from the ClockSolver program!!\n\n" ) ;
-	  if(0 == arg0.length){
+	  if(1 == args.length){
 		  slice = DEFAULT_TIME_SLICE_SECONDS;
 	  }
       if( 0 == args.length ) {
@@ -58,9 +59,8 @@ public class ClockSolver {
                              "   Please try again..........." );
          System.exit( 1 );
       }
-      Clock clock = new Clock(arg0,arg1);
    }
-*/
+
   /**
    *  The main program starts here
    *  remember the constraints from the project description
@@ -74,32 +74,25 @@ public class ClockSolver {
 	  double arg1 = Double.parseDouble(args[1]);
 	  ClockSolver cse = new ClockSolver();
       Clock clock = new Clock(arg0,arg1);
-	  System.out.println(clock.slice);
-	  System.out.println(clock.angle);
-	  
+	  boolean flag = false;
 //      double[] timeValues = new double[3];
 //      cse.handleInitialArguments( args );
       while( true ) {
          while(clock.totalSeconds<(43200-clock.slice)){
-	//	  System.out.println("hi");
 	      clock.totalSeconds = clock.tick();
-//		  System.out.println(clock.totalSeconds);
-//		  System.out.println(clock.toString());
-          System.out.println("Angle");
-          System.out.println(clock.getHandAngle());
-		  System.out.println("Minute");
-		  System.out.println(clock.getMinuteHand());
-		  System.out.println("Hour");
-		  System.out.println(clock.getHourHand());
 			 if(clock.getHandAngle() >= (arg0-cse.EPSILON_VALUE) && clock.getHandAngle() <= (arg0+cse.EPSILON_VALUE)){
 				 System.out.println(clock.toString());
-
-			 }else{
-//				  System.out.println("no selections");
+                 flag = true;
 			 }
 		 }
+		 if(flag == false){
+		  System.out.println("No matching angles were found. Try a smaller time slice");
+	  }
 		 break;
+		  
       }
       System.exit( 0 );
+	  
+	 
    }
 }
