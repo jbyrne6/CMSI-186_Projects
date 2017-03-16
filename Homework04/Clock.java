@@ -22,12 +22,14 @@ public class Clock{
    private static final double MAXIMUM_DEGREE_VALUE = 360.0;
    private static final double HOUR_HAND_DEGREES_PER_SECOND = 0.00834;
    private static final double MINUTE_HAND_DEGREES_PER_SECOND = 0.1;
-   private double seconds = 0;
-   private double minutes = 0;
-   private double hours = 0;
-   private double slice = 0;
-   private double angle = 0;
- 
+   public double seconds = 0;
+   public double minutes = 0;
+   public double hours = 0;
+   public double slice = 0;
+   public double angle = 0;
+   private double hourAngle = 0;
+   private double minuteAngle = 0;
+   public double totalSeconds = 0;
    
     /**
     *  Constructor goes here
@@ -36,8 +38,11 @@ public class Clock{
 		this.seconds = 0;
 		this.minutes = 0;
 		this.hours = 0;
-		this.slice = 0;
-		this.angle = 0;
+		this.slice = slice;
+		this.angle = angle;
+		this.totalSeconds = totalSeconds;
+		this.hourAngle = 0;
+		this.minuteAngle = 0;
 	}
 	/**
    *  Methods go here
@@ -46,8 +51,8 @@ public class Clock{
    *  @return double-precision value of the current clock tick
    */
    public double tick() {
-  	  this.seconds += this.slice;
-	  return seconds;
+  	  this.totalSeconds += this.slice;
+	  return totalSeconds;
    }
 
   /**
@@ -90,15 +95,28 @@ public class Clock{
    *  @return double-precision value of the hour hand location
    */
    public double getHourHand() {
-      return this.hours;
+      double hourAngle = 0.008333*totalSeconds;
+	  if(hourAngle > 360){
+		  hourAngle = hourAngle%360;
+		  if(hourAngle > 180){
+			  hourAngle = (360 - hourAngle);
+		  }
+	  }
+	  return hourAngle;
    }
-
   /**
    *  Method to calculate and return the current position of the minute hand
    *  @return double-precision value of the minute hand location
    */
    public double getMinuteHand() {
-      return this.minutes;
+      double minuteAngle = 0.1*totalSeconds;
+	  if(minuteAngle > 360){
+		  minuteAngle = minuteAngle%360;
+		  if(minuteAngle > 180){
+			  minuteAngle = (360 - minuteAngle); 
+		  }
+	  }
+	  return minuteAngle;
    }
 
   /**
@@ -106,23 +124,42 @@ public class Clock{
    *  @return double-precision value of the angle between the two hands
    */
    public double getHandAngle() {
-      return this.angle;
+       this.angle = Math.abs(hourAngle-minuteAngle);
+	   return this.angle;
    }
+   
 
   /**
    *  Method to return a String representation of this clock
    *  @return String value of the current clock
    */
    public String toString() {
-	  if(slice < 60){
+/**
+   if(seconds < 60){
 		  seconds = seconds + slice;
-		  if(slice < 3600){
+		  if(seconds < 3600){
 			  minutes = minutes + Math.floor(slice/60);
-			  if(slice < 43200){
+			  if(seconds < 43200){
 				  hours = hours + Math.floor(slice/3600);
 			  }
 		  }
 	  }
+*/
+
+	  if(totalSeconds < 60){
+		  seconds = totalSeconds;
+	  }else{
+		  seconds = Math.floor(totalSeconds%60);
+	  }
+	  if(totalSeconds < 3600){
+		  minutes = Math.floor(totalSeconds/60);
+	  }else{
+		  minutes = Math.floor(totalSeconds%60);
+	  }
+	  if(totalSeconds < 43200){
+		  hours = Math.floor(totalSeconds/3600);
+	  }
+
 	  String timeString = Double.toString(hours)+":"+Double.toString(minutes)+":"+Double.toString(seconds);
       return timeString;
    }

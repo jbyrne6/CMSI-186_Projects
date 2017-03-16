@@ -18,19 +18,20 @@
  *  @version 1.0.0  2017-02-28  B.J. Johnson  Initial writing and release
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-public class ClockSolverEmpty {
+public class ClockSolver {
   /**
    *  Class field definintions go here
    */
    private final double MAX_TIME_SLICE_IN_SECONDS  = 1800.00;
    private final double DEFAULT_TIME_SLICE_SECONDS = 60.0;
    private final double EPSILON_VALUE              = 0.1;      // small value for double-precision comparisons
+   private double slice = 0;
 
   /**
    *  Constructor
    *  This just calls the superclass constructor, which is "Object"
    */
-   public ClockSolverEmpty() {
+   public ClockSolver() {
       super();
    }
 
@@ -38,22 +39,28 @@ public class ClockSolverEmpty {
    *  Method to handle all the input arguments from the command line
    *   this sets up the variables for the simulation
    */
+   /**
    public void handleInitialArguments( String args[] ) {
      // args[0] specifies the angle for which you are looking
      //  your simulation will find all the angles in the 12-hour day at which those angles occur
      // args[1] if present will specify a time slice value; if not present, defaults to 60 seconds
      // you may want to consider using args[2] for an "angle window"
 
+	  double arg0 = Double.parseDouble(args[0]);
+	  double arg1 = Double.parseDouble(args[1]);
       System.out.println( "\n   Hello world, from the ClockSolver program!!\n\n" ) ;
+	  if(0 == arg0.length){
+		  slice = DEFAULT_TIME_SLICE_SECONDS;
+	  }
       if( 0 == args.length ) {
          System.out.println( "   Sorry you must enter at least one argument\n" +
                              "   Usage: java ClockSolver <angle> [timeSlice]\n" +
                              "   Please try again..........." );
          System.exit( 1 );
       }
-      Clock clock = new Clock();
+      Clock clock = new Clock(arg0,arg1);
    }
-
+*/
   /**
    *  The main program starts here
    *  remember the constraints from the project description
@@ -63,12 +70,35 @@ public class ClockSolverEmpty {
    *                args[1] is the time slice; this is optional and defaults to 60 seconds
    */
    public static void main( String args[] ) {
-      ClockSolverEmpty cse = new ClockSolverEmpty();
-      ClockEmpty clock    = new ClockEmpty();
-      double[] timeValues = new double[3];
-      cse.handleInitialArguments( args );
+	  double arg0 = Double.parseDouble(args[0]);
+	  double arg1 = Double.parseDouble(args[1]);
+	  ClockSolver cse = new ClockSolver();
+      Clock clock = new Clock(arg0,arg1);
+	  System.out.println(clock.slice);
+	  System.out.println(clock.angle);
+	  
+//      double[] timeValues = new double[3];
+//      cse.handleInitialArguments( args );
       while( true ) {
-         break;
+         while(clock.totalSeconds<(43200-clock.slice)){
+	//	  System.out.println("hi");
+	      clock.totalSeconds = clock.tick();
+//		  System.out.println(clock.totalSeconds);
+//		  System.out.println(clock.toString());
+          System.out.println("Angle");
+          System.out.println(clock.getHandAngle());
+		  System.out.println("Minute");
+		  System.out.println(clock.getMinuteHand());
+		  System.out.println("Hour");
+		  System.out.println(clock.getHourHand());
+			 if(clock.getHandAngle() >= (arg0-cse.EPSILON_VALUE) && clock.getHandAngle() <= (arg0+cse.EPSILON_VALUE)){
+				 System.out.println(clock.toString());
+
+			 }else{
+//				  System.out.println("no selections");
+			 }
+		 }
+		 break;
       }
       System.exit( 0 );
    }
