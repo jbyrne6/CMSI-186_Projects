@@ -45,7 +45,7 @@ public class ClockSolver {
      //  your simulation will find all the angles in the 12-hour day at which those angles occur
      // args[1] if present will specify a time slice value; if not present, defaults to 60 seconds
      // you may want to consider using args[2] for an "angle window"
-
+      
 	  double arg0 = Double.parseDouble(args[0]);
 	  double arg1 = Double.parseDouble(args[1]);
 	  Clock clock = new Clock(arg0,arg1);
@@ -59,6 +59,14 @@ public class ClockSolver {
                              "   Please try again..........." );
          System.exit( 1 );
       }
+	  if(clock.validateAngleArg(args[0]) == -1){
+		  System.out.println("Your angle is invalid.");
+		  System.exit( 1 );
+	  }
+	  if(clock.validateTimeSliceArg(args[1]) == -1){
+		  System.out.println("Your time slice is invalid.");
+		  System.exit( 1 );
+	  }
    }
 
   /**

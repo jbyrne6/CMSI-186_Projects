@@ -66,6 +66,8 @@ public class Clock{
 		 double dav = Double.parseDouble(argValue);
 		 if(dav < MAXIMUM_DEGREE_VALUE && dav > 0){
 			 return dav;
+		 }else{
+			 dav = INVALID_ARGUMENT_VALUE;
 		 }
 	return dav;
 	}
@@ -169,7 +171,50 @@ public class Clock{
       System.out.println( "    New clock created: " + clock.toString() );
       System.out.println( "    Testing validateAngleArg(90.0)....");
       System.out.print( "      sending '  90.0 degrees', expecting double value   90.0" );
-      try { System.out.println( (0.0 == clock.validateAngleArg( "90.0" )) ? " - got   90.0" : " - no joy" ); }
+      try { System.out.println( (90.0 == clock.validateAngleArg( "90.0" )) ? " - got   90.0" : " - no joy" ); }
+      catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+	  System.out.println( "    Testing validateTimeSliceArg(90.0)....");
+      System.out.print( "      sending '  90.0 degrees', expecting double value   90.0" );
+      try { System.out.println( (90.0 == clock.validateTimeSliceArg( "90.0" )) ? " - got   90.0" : " - no joy" ); }
+      catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+	  
+	  System.out.println( "\n" );
+	  System.out.println( "  Creating a new clock: " );
+      Clock clock1 = new Clock(0,90.0);
+      System.out.println( "    New clock created: " + clock1.toString() );
+      System.out.println( "    Testing validateAngleArg(0)....");
+      System.out.print( "      sending '  0 degrees', expecting double value   0.0" );
+      try { System.out.println( (0 == clock1.validateAngleArg( "0" )) ? " - got   0.0" : " - no joy" ); }
+      catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+	  System.out.println( "    Testing validateTimeSliceArg(0.0)....");
+      System.out.print( "      sending '  0 degrees', expecting double value   0.0" );
+      try { System.out.println( (0.0 == clock1.validateTimeSliceArg( "0.0" )) ? " - got   0.0" : " - no joy" ); }
+      catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+	  
+	  System.out.println( "\n" );
+	  System.out.println( "  Creating a new clock: " );
+      Clock clock2 = new Clock(1000,1000);
+      System.out.println( "    New clock created: " + clock1.toString() );
+      System.out.println( "    Testing validateAngleArg(1000)....");
+      System.out.print( "      sending '  1000 degrees', expecting double value   1000" );
+      try { System.out.println( (1000 == clock2.validateAngleArg( "1000" )) ? " - got   1000" : " - no joy" ); }
+      catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+	  System.out.println( "    Testing validateTimeSliceArg(1000)....");
+      System.out.print( "      sending '  1000 degrees', expecting double value   1000" );
+      try { System.out.println( (1000 == clock2.validateTimeSliceArg( "1000" )) ? " - got   1000" : " - no joy" ); }
+      catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+	  
+	  System.out.println( "\n" );
+	  System.out.println( "  Creating a new clock: " );
+      Clock clock3 = new Clock(-1,-1);
+      System.out.println( "    New clock created: " + clock1.toString() );
+      System.out.println( "    Testing validateAngleArg(-1)....");
+      System.out.print( "      sending '  -1 degrees', expecting double value   -1" );
+      try { System.out.println( (-1 == clock3.validateAngleArg( "-1" )) ? " - got   -1" : " - no joy" ); }
+      catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+	  System.out.println( "    Testing validateTimeSliceArg(-1)....");
+      System.out.print( "      sending '  -1 degrees', expecting double value   -1" );
+      try { System.out.println( (-1 == clock3.validateTimeSliceArg( "-1" )) ? " - got   -1" : " - no joy" ); }
       catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
    }
 }
