@@ -79,7 +79,10 @@ public class ClockSolver {
    */
    public static void main( String args[] ) {
 	  double arg0 = Double.parseDouble(args[0]);
-	  double arg1 = Double.parseDouble(args[1]);
+	  double arg1 = 60;
+	  if(args.length!=1){
+		  arg1 = Double.parseDouble(args[1]);
+	  }
 	  ClockSolver cse = new ClockSolver();
       Clock clock = new Clock(arg0,arg1);
 	  boolean flag = false;
@@ -88,7 +91,7 @@ public class ClockSolver {
       while( true ) {
          while(clock.totalSeconds<(43200-clock.slice)){
 	      clock.totalSeconds = clock.tick();
-			 if(clock.getHandAngle() >= (arg0-cse.EPSILON_VALUE) && clock.getHandAngle() <= (arg0+cse.EPSILON_VALUE)){
+			 if(clock.getHandAngle() >= (arg0-((5.5/60)*arg1)/2) && clock.getHandAngle() <= (arg0+((5.5/60)*arg1)/2)){
 				 System.out.println(clock.toString());
                  flag = true;
 			 }
@@ -100,7 +103,6 @@ public class ClockSolver {
 		  
       }
       System.exit( 0 );
-	  
-	 
+	   
    }
 }

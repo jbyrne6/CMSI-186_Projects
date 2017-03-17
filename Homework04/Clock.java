@@ -16,7 +16,8 @@
  *           -----  ----------  ------------  -----------------------------------------------------------
  *  @version 1.0.0  2017-03-15  James Byrne  Initial writing and release
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-public class Clock{
+import java.text.DecimalFormat;
+ public class Clock{
    private static final double DEFAULT_TIME_SLICE_IN_SECONDS = 60.0;
    private static final double INVALID_ARGUMENT_VALUE = -1.0;
    private static final double MAXIMUM_DEGREE_VALUE = 360.0;
@@ -127,6 +128,9 @@ public class Clock{
    */
    public double getHandAngle() {
        this.angle = Math.abs(getMinuteHand()-getHourHand());
+	   if(this.angle > 180){
+		   this.angle = 360-this.angle;
+	   }
 	   return this.angle;
    }
    
@@ -136,7 +140,7 @@ public class Clock{
    *  @return String value of the current clock
    */
    public String toString() {
-
+//      DecimalFormat df = new DecimalFormat("#0.0000");
 	  if(totalSeconds < 60){
 		  seconds = totalSeconds;
 	  }else{
@@ -150,8 +154,8 @@ public class Clock{
 	  if(totalSeconds < 43200){
 		  hours = Math.floor(totalSeconds/3600);
 	  }
-
-	  String timeString = Double.toString(hours)+":"+Double.toString(minutes)+":"+Double.toString(seconds);
+      String timeString = Double.toString(hours)+":"+Double.toString(minutes)+":"+ Double.toString(seconds);
+//	  String timeString = Double.toString(hours)+":"+Double.toString(minutes)+":"+df.format(Double.toString(seconds));
       return timeString;
    }
 
