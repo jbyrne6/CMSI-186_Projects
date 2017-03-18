@@ -86,10 +86,10 @@ import java.text.DecimalFormat;
    */
    public double validateTimeSliceArg( String argValue ) {
       double d = Double.parseDouble(argValue);
-	  if(d < 0 || d > 1800){
-		  return INVALID_ARGUMENT_VALUE;
+	  if(d > 0 && d < 1800){
+		  return d;
    }else{
-	   return d;
+	   return INVALID_ARGUMENT_VALUE;
    }
    }
 
@@ -170,7 +170,7 @@ import java.text.DecimalFormat;
 
       System.out.println( "\nCLOCK CLASS TESTER PROGRAM\n" +
                           "--------------------------\n" );
-      System.out.println( "  Creating a new clock: " );
+      System.out.println( "  Creating a new clock with angle 90 and ts 90: " );
       Clock clock = new Clock(90.0,90.0);
       System.out.println( "    New clock created: " + clock.toString() );
       System.out.println( "    Testing validateAngleArg(90.0)....");
@@ -181,9 +181,10 @@ import java.text.DecimalFormat;
       System.out.print( "      sending '  90.0 degrees', expecting double value   90.0" );
       try { System.out.println( (90.0 == clock.validateTimeSliceArg( "90.0" )) ? " - got   90.0" : " - no joy" ); }
       catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+
 	  
 	  System.out.println( "\n" );
-	  System.out.println( "  Creating a new clock: " );
+	  System.out.println( "  Creating a new clock with angle 0 and ts 90: " );
       Clock clock1 = new Clock(0,90.0);
       System.out.println( "    New clock created: " + clock1.toString() );
       System.out.println( "    Testing validateAngleArg(0)....");
@@ -192,24 +193,26 @@ import java.text.DecimalFormat;
       catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
 	  System.out.println( "    Testing validateTimeSliceArg(0.0)....");
       System.out.print( "      sending '  0 degrees', expecting double value   0.0" );
-      try { System.out.println( (0.0 == clock1.validateTimeSliceArg( "0.0" )) ? " - got   0.0" : " - no joy" ); }
+      try { System.out.println( (90.0 == clock1.validateTimeSliceArg( "90.0" )) ? " - got   90.0" : " - no joy" ); }
       catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+
 	  
 	  System.out.println( "\n" );
-	  System.out.println( "  Creating a new clock: " );
+	  System.out.println( "  Creating a new clock with angle 1000 and ts 1000 " );
       Clock clock2 = new Clock(1000,1000);
       System.out.println( "    New clock created: " + clock1.toString() );
       System.out.println( "    Testing validateAngleArg(1000)....");
       System.out.print( "      sending '  1000 degrees', expecting double value   1000" );
-      try { System.out.println( (1000 == clock2.validateAngleArg( "1000" )) ? " - got   1000" : " - no joy" ); }
+      try { System.out.println( (1000.00 == clock2.validateAngleArg( "1000" )) ? " - got   1000" : " - no joy" ); }
       catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
 	  System.out.println( "    Testing validateTimeSliceArg(1000)....");
       System.out.print( "      sending '  1000 degrees', expecting double value   1000" );
-      try { System.out.println( (1000 == clock2.validateTimeSliceArg( "1000" )) ? " - got   1000" : " - no joy" ); }
+      try { System.out.println( (1000.00 == clock2.validateTimeSliceArg( "1000" )) ? " - got   1000" : " - no joy" ); }
       catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+
 	  
 	  System.out.println( "\n" );
-	  System.out.println( "  Creating a new clock: " );
+	  System.out.println( "  Creating a new clock with angle -1 and ts -1 " );
       Clock clock3 = new Clock(-1,-1);
       System.out.println( "    New clock created: " + clock1.toString() );
       System.out.println( "    Testing validateAngleArg(-1)....");
@@ -220,5 +223,6 @@ import java.text.DecimalFormat;
       System.out.print( "      sending '  -1 degrees', expecting double value   -1" );
       try { System.out.println( (-1 == clock3.validateTimeSliceArg( "-1" )) ? " - got   -1" : " - no joy" ); }
       catch( Exception e ) { System.out.println ( " - Exception thrown: " + e.toString() ); }
+
    }
 }
