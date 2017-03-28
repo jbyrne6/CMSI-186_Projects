@@ -1,7 +1,11 @@
 public class Time{
-    private double totalSeconds = 0;
-	private static final double defaultSlice = 1; //In seconds, this is the constant time slice. The user doesn't input a time slice.
-	public double slice; // the time that the user wants to output information
+	public static final double defaultSlice = 1; //In seconds, this is the constant time slice. The user doesn't input a time slice.
+	double totalSeconds = 0;
+	
+	public Time(double slice){
+		totalSeconds = totalSeconds;
+		slice = slice; // the time that the user wants to output information
+	}
 	
     public String toString(){
 	    double seconds = 0;

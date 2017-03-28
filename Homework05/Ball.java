@@ -12,11 +12,11 @@ note: have a timeslice as an input
 */
 public class Ball{
 	public double ballRadius = 4.45; //Radius in inches
-	private double xPosition;
-	private double yPosition;
-	private double velocity; //In feet per seconds
-	private double direction; //Angle in degrees between 0 and 360
-	private double[] positionArray; //Array with ball x position in index 0 and ball y position in index 1.
+	public double xPosition;
+	public double yPosition;
+	public double velocity; //In feet per seconds
+	public double direction; //Angle in degrees between 0 and 360
+	public double[] positionArray; //Array with ball x position in index 0 and ball y position in index 1.
 		
 	public Ball(double xPos,double yPos,double d,double v,double s){
 		xPosition = xPos;
