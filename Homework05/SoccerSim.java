@@ -152,7 +152,10 @@ public class SoccerSim{
 			double stopCounter = 0;
 			for(int i=0;i<ballArray.length;i++){
 				if(ballArray[i].velocity < (1/12)){
-					ballArray[i].velocity = 0;
+					ballArray[i].velocity = 0; 
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					//for negative x and y values a velocity below 1/12 does not turn into zero for some reason
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			    }
 				
 				if(field.isOutOfBounds(ballArray[i].xPosition,ballArray[i].yPosition) == true){
