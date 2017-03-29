@@ -17,6 +17,7 @@ public class Ball{
 	public double velocity; //In feet per seconds
 	public double direction; //Angle in degrees between 0 and 360
 	public double[] positionArray; //Array with ball x position in index 0 and ball y position in index 1.
+	public boolean isStopped = false;
 		
 	public Ball(double xPos,double yPos,double d,double v,double s){
 		xPosition = xPos;
@@ -25,6 +26,7 @@ public class Ball{
 		velocity = v;
 		positionArray = positionArray;
 		ballRadius = ballRadius;
+		isStopped = isStopped;
 	}
 	
 	public double updateVelocity(){ //if velocity < (1/12) that ball has stopped
@@ -65,6 +67,14 @@ public class Ball{
 		positionArray[1] = yPosition;
 		// index 0 is x position and index 1 is y position
 		return positionArray;
+	}
+	
+	public static boolean isCollided(double ballOnex,double ballOney, double ballTwox,double ballTwoy){
+		if((Math.sqrt((ballTwox-ballOnex)*(ballTwox-ballOnex) + (ballTwoy-ballOney)*(ballTwoy-ballOney))) <= (8.9)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public static void main( String args[] ) {

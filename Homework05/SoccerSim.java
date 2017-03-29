@@ -29,7 +29,7 @@ public class SoccerSim{
 	   }
 	   
 	   //See if field dimensions are negative
-	   if(field.right <= 0 || field.left <= 0 || field.top <= 0 || field.bot <= 0){
+	   if(Double.parseDouble(args[0]) <= 0 || Double.parseDouble(args[1]) <= 0){
 		   errorArray[1] = true;
 	   }else{
 		   errorArray[1] = false;
@@ -59,15 +59,13 @@ public class SoccerSim{
 			startd += 4;
         }
 		
-		//See if initial velocity is greater than 1 inch per second
+		//See if initial velocity is less than 1 inch per second or greater than 131 mph
 		double startv = 5;
 		for(int i=0;i< numBalls;i++){
-	        if((Double.parseDouble(args[(int)startv])/12) <= 1){
-				errorArray[4] = true;
-				//System.out.print.ln("")
-				//;
-			}else{
+	        if(((Double.parseDouble(args[(int)startv])) > (1/12)) || ((Double.parseDouble(args[(int)startv])) <= (131/3600) * 5280)){
 				errorArray[4] = false;
+			}else{
+				errorArray[4] = true;
 			}
 			startv += 4;
         }
@@ -92,7 +90,7 @@ public class SoccerSim{
 			System.out.println("Your direction must be between 0 and 360.");
 		}
 		if(errorArray[4] == true){
-			System.out.println("Your velocity must be between greater than (1/12) feet per second.");
+			System.out.println("Your velocity must be between greater than 0.0833 feet per second and less than 192.133 feet per second.");
 		}
 		if(errorArray[5] == true){
 			System.out.println("Your slice must be a positive number.");
@@ -109,7 +107,7 @@ public class SoccerSim{
 		double v = 5;
 		double s = args.length-1;
 	    for(int i=0;i< numBalls;i++){
-		    ballArray[i] = new Ball(x,y,d,v,s);
+		ballArray[i] = new Ball(Double.parseDouble(args[(int)x]),Double.parseDouble(args[(int)y]),Double.parseDouble(args[(int)d]),Double.parseDouble(args[(int)v]),Double.parseDouble(args[(int)s]));
 			x += 4;
 			y += 4;
 			d += 4;
@@ -131,11 +129,18 @@ public class SoccerSim{
 // -Ball is stopped test
 // -Ball is colliding with other ball test
 // -Ball is colliding with pole test
-//     -only compare with balls that have a velocity > 
+//If all balls are stopped then stop the program or if a ball collides 
 // -tick
 // -make counter that incraments every tick to keep track of time that things happen
 //     -Time.totalSeconds += 1
 		double totalSeconds = 0;
+		boolean ballToPoleFlag = false;
+		boolean ballToBallFlag = false;
+	    double ballFlagTime = 0;
+		double poleFlagTime = 0;
+		double whichBall = 0;
+		double whichBallOne = 0;
+		double whichBallTwo = 0;
 		while(true){
             if(totalSeconds % (Double.parseDouble(args[args.length-1])) == 0){
 				for(int i=0;i< numBalls;i++){
@@ -143,15 +148,68 @@ public class SoccerSim{
 			        System.out.println("Ball " + (i+1) + " is at x = " + ballArray[i].xPosition + ", y = " + ballArray[i].yPosition + ", and velocity = " + ballArray[i].velocity + ".");
 		        }
 			}
-			
 			time.totalSeconds = time.tick();
+			double stopCounter = 0;
 			for(int i=0;i<ballArray.length;i++){
+				if(ballArray[i].velocity < (1/12)){
+					ballArray[i].velocity = 0;
+			    }
+				
 				if(field.isOutOfBounds(ballArray[i].xPosition,ballArray[i].yPosition) == true){
+					ballArray[i].velocity = 0;
+					ballArray[i].xPosition = Math.random() * 3000000 + 1000000;
+					ballArray[i].yPosition = Math.random() * 3000000 + 1000000;
+					ballArray[i].isStopped = true;
 // 	If isOutOfBounds is true stop that ball from being compared for collision
+//?What to do when a ball goes out of bounds?
+//If out of bounds set 
+// If out of bounds then set veocity = 0, set x & y to number outside of field size (set to a very big random number ex. btwm 1 and 2 million)
+				}
+                
+				//compare pole with balls
+				if(Ball.isCollided(ballArray[i].xPosition,ballArray[i].yPosition,pole.xPos,pole.yPos)){
+				    ballToPoleFlag = true;
+					poleFlagTime = totalSeconds;
+					whichBall = i+1;
+					
+				}
+				
+				if(ballArray[i].velocity == 0){
+					ballArray[i].isStopped = true;
 				}
 				ballArray[i].velocity = ballArray[i].updateVelocity();
-				ballArray[i].updatePosition();
+				ballArray[i].updatePosition();	
+
+                if(ballArray[i].isStopped == true){
+				    stopCounter += 1;
+			    }
+				if(stopCounter == numBalls){
+					System.out.println("There were no collisions.");
+				    System.exit( 1 );	
+				}				
 			}
+			
+			//Compare ball positions
+			for(int I=0;I<ballArray.length-2;I++){
+				for(int J=0;J<ballArray.length-1;J++){
+				    if(Ball.isCollided(ballArray[I].xPosition,ballArray[J].yPosition,ballArray[I].xPosition,ballArray[J].yPosition) == true){
+						ballToBallFlag = true;
+						ballFlagTime = totalSeconds;
+						whichBallOne = I+1;
+						whichBallTwo = J+1;
+							//System.out.println("At " + time.toString() + ", ball " + (I+1) + " collided with ball " + (j+1) + ".");
+							//System.exit( 1 );
+					}
+				}
+			}
+			if(ballToBallFlag == true || ballToPoleFlag == true){
+				if(poleFlagTime < ballFlagTime){
+					System.out.println("At time " + time.toStringArgs(poleFlagTime) + ", ball " + Double.toString(whichBall) + " collided with the pole.");
+				}else{
+					System.out.println("At time " + time.toStringArgs(ballFlagTime) + ", ball " + Double.toString(whichBallOne) + " collided with ball " + Double.toString(whichBallTwo) + ".");
+				}
+			}
+			
 		}
 	}
 }
