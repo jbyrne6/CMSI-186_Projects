@@ -3,9 +3,9 @@
 public class Pole{
 	public double xPos;
 	public double yPos;
-	private double poleRadius = 4.45;
+	private double poleRadius = 4.45/12;
 	private double x = 1;
-	
+
 	public Pole(double fieldx,double fieldy){
 		if(0 == Math.round(Math.random())){
 			x = -1;

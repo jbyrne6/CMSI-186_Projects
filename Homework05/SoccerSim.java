@@ -1,4 +1,6 @@
     /*
+    ?This is being updated every second so balls can pass each other and not be registered for a collision, How to fix?
+    ?For an unknown reason sometimes if a ball's velocity goes below 1/12 it is not registered as stopped and velocity isn't set to 0?
     -Make a method that checks the distance between the center of n number of balls and with the center of the flag pole.
     +Make an array that holds the ball objects
     +Validate all input arguments
@@ -124,6 +126,7 @@ public class SoccerSim{
 			  ballyPos += 4;
 			  ballVelocity += 4;
 		}
+    System.out.println("The pole is at x = " + pole.xPos + ", and y = " + pole.yPos + ".\n" );
 
 // -Ball is out of bounds test
 // -Ball is stopped test
@@ -141,22 +144,28 @@ public class SoccerSim{
 		double whichBall = 0;
 		double whichBallOne = 0;
 		double whichBallTwo = 0;
+    double stopCounter = 0;
 		while(true){
         if(time.totalSeconds % (Double.parseDouble(args[args.length-1])) == 0 && time.totalSeconds != 0){
-			      for(int i=0;i< numBalls;i++){
+			      for(int o=0;o< numBalls;o++){
 				        System.out.println("Current time is " + time.toString());
-			          System.out.println("Ball " + (i+1) + " is at x = " + ballArray[i].xPosition + ", y = " + ballArray[i].yPosition + ", and velocity = " + ballArray[i].velocity + ".\n");
+			          System.out.println("Ball " + (o+1) + " is at x = " + ballArray[o].xPosition + ", y = " + ballArray[o].yPosition + ", and velocity = " + ballArray[o].velocity + ".\n");
 		        }
 			  }
 		    time.totalSeconds = time.tick();
-			  double stopCounter = 0;
+
 			  for(int i=0;i<ballArray.length;i++){
-				    if(ballArray[i].velocity < (1/12)){
-					      ballArray[i].velocity = 0;
+            //System.out.println("For Loop Working");
+/*
+            if(ballArray[i].velocity < (1/12)){
+                //System.out.println("If Loop Working");
+                ballArray[i].velocity = 0;
+                ballArray[i].isStopped = true;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					//for negative x and y values a velocity below 1/12 does not turn into zero for some reason
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			      }
+            */
 				    if(field.isOutOfBounds(ballArray[i].xPosition,ballArray[i].yPosition) == true){
 					      ballArray[i].velocity = 0;
 					      ballArray[i].xPosition = Math.random() * 3000000 + 1000000;
@@ -169,7 +178,7 @@ public class SoccerSim{
 				    }
 
 //compare pole with balls
-				    if(Ball.isCollided(ballArray[i].xPosition,ballArray[i].yPosition,pole.xPos,pole.yPos)){
+				    if(Ball.isCollided(ballArray[i].xPosition,ballArray[i].yPosition,pole.xPos,pole.yPos) == true){
 				        ballToPoleFlag = true;
 					      poleFlagTime = totalSeconds;
 					      whichBall = i+1;
@@ -178,7 +187,7 @@ public class SoccerSim{
 				    if(ballArray[i].velocity == 0){
 					      ballArray[i].isStopped = true;
 				    }
-				    ballArray[i].velocity = ballArray[i].updateVelocity();
+				    ballArray[i].updateVelocity();
 				    ballArray[i].updatePosition();
 
             if(ballArray[i].isStopped == true){
@@ -204,8 +213,10 @@ public class SoccerSim{
 			  if(ballToBallFlag == true || ballToPoleFlag == true){
 				    if(poleFlagTime < ballFlagTime){
 				        System.out.println("At time " + time.toStringArgs(poleFlagTime) + ", ball " + Double.toString(whichBall) + " collided with the pole.\n\n\n\n\n");
+                System.exit( 1 );
 			      }else{
 				        System.out.println("At time " + time.toStringArgs(ballFlagTime) + ", ball " + Double.toString(whichBallOne) + " collided with ball " + Double.toString(whichBallTwo) + ".\n\n\n\n\n");
+                System.exit( 1 );
 				    }
 			  }
 		}

@@ -8,36 +8,39 @@ TO DO:
 ?How many soccer balls? user decides
 +Make validate arg methods for xPosition, yPosition, direction, and velocity.
 +Make a to string method that converts the total seconds to hours,minutes,and seconds like that in Clock.
-note: have a timeslice as an input 
+note: have a timeslice as an input
 */
 public class Ball{
-	public double ballRadius = 4.45; //Radius in inches
+	public double radius = 4.45; //Radius in inches
+	public double ballRadius = 4.45/12; //Radius in feet
 	public double xPosition;
 	public double yPosition;
 	public double velocity; //In feet per seconds
 	public double direction; //Angle in degrees between 0 and 360
-	public double[] positionArray; //Array with ball x position in index 0 and ball y position in index 1.
 	public boolean isStopped = false;
-		
+
 	public Ball(double xPos,double yPos,double d,double v,double s){
 		xPosition = xPos;
 		yPosition = yPos;
 		direction = d;
 		velocity = v;
-		positionArray = positionArray;
 		ballRadius = ballRadius;
 		isStopped = isStopped;
 	}
-	
+
 	public double updateVelocity(){ //if velocity < (1/12) that ball has stopped
 		velocity = velocity - velocity*(.01);
+		if(velocity < (1.0/12.0)){
+			velocity = 0;
+			isStopped = true;
+		}
 		return velocity;
 	}
-	
+
 	public double getVelocity(){
 		return velocity;
 	}
-	
+
 	//REMEMBER TO CONVERT TO RADIANS WITH Math.toRadians() TO USE Math.sin AND Math.cos
 	public void updatePosition(){
 		double cLength = velocity; //Hypotenuse in feet
@@ -45,38 +48,51 @@ public class Ball{
 		double bAngle;
 		if(direction < 90 && direction > 0){ //First quadrant
 			bAngle = direction;
+			double aAngle = 180 - (cAngle+bAngle);
+			double bLength = (cLength/Math.sin(Math.toRadians(cAngle))*Math.sin(Math.toRadians(bAngle)));
+			double aLength = (cLength/Math.sin(Math.toRadians(cAngle))*Math.sin(Math.toRadians(aAngle)));
+			xPosition += aLength;
+			yPosition += bLength;
 		}else if(direction < 180 && direction > 90){ //Seconds quadrant
 			bAngle = (180-direction);
+			double aAngle = 180 - (cAngle+bAngle);
+			double bLength = (cLength/Math.sin(Math.toRadians(cAngle))*Math.sin(Math.toRadians(bAngle)));
+			double aLength = (cLength/Math.sin(Math.toRadians(cAngle))*Math.sin(Math.toRadians(aAngle)));
+			xPosition += aLength;
+			yPosition += bLength;
 		}else if(direction < 270 && direction > 180){ //Third quadrant
 			bAngle = (direction-180);
+			double aAngle = 180 - (cAngle+bAngle);
+			double bLength = (cLength/Math.sin(Math.toRadians(cAngle))*Math.sin(Math.toRadians(bAngle)));
+			double aLength = (cLength/Math.sin(Math.toRadians(cAngle))*Math.sin(Math.toRadians(aAngle)));
+			xPosition += aLength;
+			yPosition += bLength;
 		}else if(direction < 360 && direction > 270){ //Fourth quadrant
 			bAngle = (360-direction);
-		}else{
-			bAngle = 0;
-		}		
-		double aAngle = 180 - (90+bAngle);
-		double bLength = (cLength/Math.toRadians(Math.sin(cAngle)))*Math.toRadians(Math.sin(bAngle));
-		double aLength = (cLength/Math.toRadians(Math.sin(cAngle)))*Math.toRadians(Math.sin(aAngle));
-		xPosition += aLength;
-		yPosition += bLength;
+			double aAngle = 180 - (cAngle+bAngle);
+			double bLength = (cLength/Math.sin(Math.toRadians(cAngle))*Math.sin(Math.toRadians(bAngle)));
+			double aLength = (cLength/Math.sin(Math.toRadians(cAngle))*Math.sin(Math.toRadians(aAngle)));
+			xPosition += aLength;
+			yPosition += bLength;
+		}else if(direction == 0 || direction == 360){
+			xPosition += velocity;
+		}else if(direction == 90){
+			yPosition += velocity;
+		}else if(direction == 180){
+			xPosition -= velocity;
+		}else if(direction == 270){
+			yPosition -= velocity;
+		}
 	}
-	
-	public double[] positionArray(){
-		positionArray = new double[2];
-		positionArray[0] = xPosition;
-		positionArray[1] = yPosition;
-		// index 0 is x position and index 1 is y position
-		return positionArray;
-	}
-	
+
 	public static boolean isCollided(double ballOnex,double ballOney, double ballTwox,double ballTwoy){
-		if((Math.sqrt((ballTwox-ballOnex)*(ballTwox-ballOnex) + (ballTwoy-ballOney)*(ballTwoy-ballOney))) <= (8.9)){
+		if((Math.sqrt((ballTwox-ballOnex)*(ballTwox-ballOnex) + (ballTwoy-ballOney)*(ballTwoy-ballOney))) <= (8.9/12)){
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
+
 	public static void main( String args[] ) {
 		Ball b1 = new Ball(10,10,80,100,10);
 		System.out.println("Velocity");
