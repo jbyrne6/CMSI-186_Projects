@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
 public class SoccerSim{
     public static void main(String args[]){
 
-    DecimalFormat df1 = new DecimalFormat("#0.000");
+    DecimalFormat df1 = new DecimalFormat("#0.00000");
     DecimalFormat df2 = new DecimalFormat("#0");
     Field field = new Field(Double.parseDouble(args[0]),Double.parseDouble(args[1]));
 	  Pole pole = new Pole(Double.parseDouble(args[0]),Double.parseDouble(args[1]));
@@ -175,6 +175,8 @@ public class SoccerSim{
           ballArray[q].velocity = ballArray[q].velocity*userTimeSlice;
       }
     }
+
+
 // -Ball is out of bounds test
 // -Ball is stopped test
 // -Ball is colliding with other ball test
@@ -192,10 +194,9 @@ public class SoccerSim{
 		double whichBallOne = 0;
 		double whichBallTwo = 0;
     double stopCounter = 0;
-    int testing = 1;
 
 		while(true){
-      if(Double.parseDouble(args[args.length-1]) >= 1){
+      if(userTimeSlice >= 1){
           if(((args.length-3)%4 == 0)){
             if(time.totalSeconds % (Double.parseDouble(args[args.length-1])) == 0 && time.totalSeconds != 0){
                 System.out.println("\t\t\t\tCurrent time is " + time.toString());
@@ -214,16 +215,15 @@ public class SoccerSim{
 			      }
           }
       }else{
-        testing += 1;
         System.out.println("\t\t\t\tCurrent time is " + time.toString());
         for(int o=0;o< numBalls;o++){
-            System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity) + ".");
+            System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity/userTimeSlice) + ".");
         }
         System.out.println("\n");
       }
 		    time.totalSeconds = time.tick();
-        if(Double.parseDouble(args[args.length-1]) < 1){
-          time.totalSeconds -= 1-Double.parseDouble(args[args.length-1]);
+        if(userTimeSlice < 1){
+          time.totalSeconds -= 1-userTimeSlice;
         }
 
 			  for(int i=0;i<ballArray.length;i++){
@@ -247,7 +247,13 @@ public class SoccerSim{
 				    if(ballArray[i].velocity == 0){
 					      ballArray[i].isStopped = true;
 				    }
-				    ballArray[i].updateVelocity();
+            if(userTimeSlice < 1 && Math.ceil(time.totalSeconds) == time.totalSeconds){
+              ballArray[i].updateVelocity();
+            }
+				    if(userTimeSlice >= 1){
+              ballArray[i].updateVelocity();
+            }
+
             ballArray[i].updatePosition();
 
             if(ballArray[i].isStopped == true){
