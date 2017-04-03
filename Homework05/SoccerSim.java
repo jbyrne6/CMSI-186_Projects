@@ -16,28 +16,13 @@ import java.text.DecimalFormat;
 
 public class SoccerSim{
     public static void main(String args[]){
-      \\ERROR for indexes fieldy and ballx where times add constantly if incorrect number of inputs is entered
-      boolean[] errorArray = new boolean[6]; //Making array so that user can see all different errors with input instead of just showing first one to be tripped.
-      //errorArray = [#args test,field test, bounds test, dir test, vel test, slice test]
-      //See if correct number of arguments initially
-      if(((args.length-3)%4 == 0) || (args.length-2)%4 == 0 || args.length >= 6){
-         errorArray[0] = false;
-      }else{
-         errorArray[0] = true;
-      }
 
-      if(errorArray[0] == true){
-        System.out.println("\n\n\n\n\n");
-        System.out.println("          ____________________________________________________________________________________________________\n");
-        System.out.println("\t\t\t\t\t\t\tERROR MESSAGE\n");
-  			System.out.println("You must have two field size arguments, 4 arguments for each ball object, and have the option of an update frequency argument.\n\n\n\n\n");
-  		}
-
-    DecimalFormat df1 = new DecimalFormat("#0.00");
+    DecimalFormat df1 = new DecimalFormat("#0.000");
     DecimalFormat df2 = new DecimalFormat("#0");
     Field field = new Field(Double.parseDouble(args[0]),Double.parseDouble(args[1]));
 	  Pole pole = new Pole(Double.parseDouble(args[0]),Double.parseDouble(args[1]));
 	  Time time = new Time(Double.parseDouble(args[args.length-1]));
+    double userTimeSlice = Double.parseDouble(args[args.length-1]);
     int numBalls = 0;
     if(((args.length-3)%4 == 0)){
 	      numBalls = (args.length-3) / 4;
@@ -45,7 +30,15 @@ public class SoccerSim{
         numBalls = (args.length-2) / 4;
     }
 	  Ball[] ballArray = new Ball[numBalls];
+    boolean[] errorArray = new boolean[6]; //Making array so that user can see all different errors with input instead of just showing first one to be tripped.
+    //errorArray = [#args test,field test, bounds test, dir test, vel test, slice test]
+    //See if correct number of arguments initially
 
+    if(((args.length-3)%4 != 0) && (args.length-2)%4 != 0 || args.length < 6){
+       errorArray[0] = true;
+    }else{
+       errorArray[0] = false;
+    }
     //See if field dimensions are negative
 	  if(Double.parseDouble(args[0]) <= 0 || Double.parseDouble(args[1]) <= 0){
 		    errorArray[1] = true;
@@ -90,13 +83,20 @@ public class SoccerSim{
 
     //See if time slice is negative or less than 1
     if(((args.length-3)%4 == 0)){
-      if(Double.parseDouble(args[args.length-1]) < 1){
+      if(Double.parseDouble(args[args.length-1]) <= 0){
   		    errorArray[5] = true;
   		}else {
   			  errorArray[5] = false;
   		}
 	  }
 
+    if(errorArray[0] == true){
+      System.out.println("\n\n\n\n\n");
+      System.out.println("          ____________________________________________________________________________________________________\n");
+      System.out.println("\t\t\t\t\t\t\tERROR MESSAGE\n");
+      System.out.println("\t\t\tYou must have two field size arguments, 4 arguments for each ball object, ");
+      System.out.println("\t\t\t\t   and have the option of an update frequency argument.\n\n\n\n\n");
+    }
 		if(errorArray[1] == true){
       System.out.println("\n\n\n\n\n");
       System.out.println("          ____________________________________________________________________________________________________\n");
@@ -125,7 +125,7 @@ public class SoccerSim{
       System.out.println("\n\n\n\n\n");
       System.out.println("          ____________________________________________________________________________________________________\n");
       System.out.println("\t\t\t\t\t\t\tERROR MESSAGE\n");
-			System.out.println("\t\t\t     Your slice must be a positive number greater than or equal to 1.\n\n\n\n\n");
+			System.out.println("\t\t\t     Your slice must be a positive number greater than or equal to 0.\n\n\n\n\n");
 		}
 		for(int X=0;X<errorArray.length;X++){
 			if(errorArray[X] == true){
@@ -170,6 +170,11 @@ public class SoccerSim{
         System.out.println("\t\t\t\t\t\tSTATUS UPDATE EVERY 1 SECOND\n");
     }
 
+    for(int q=0;q<ballArray.length;q++){
+      if(userTimeSlice < 1){
+          ballArray[q].velocity = ballArray[q].velocity*userTimeSlice;
+      }
+    }
 // -Ball is out of bounds test
 // -Ball is stopped test
 // -Ball is colliding with other ball test
@@ -187,45 +192,47 @@ public class SoccerSim{
 		double whichBallOne = 0;
 		double whichBallTwo = 0;
     double stopCounter = 0;
+    int testing = 1;
+
 		while(true){
-      if(((args.length-3)%4 == 0)){
-        if(time.totalSeconds % (Double.parseDouble(args[args.length-1])) == 0 && time.totalSeconds != 0){
-            System.out.println("\t\t\t\tCurrent time is " + time.toString());
-            for(int o=0;o< numBalls;o++){
-			          System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity) + ".");
-		        }
-            System.out.println("\n");
-			  }
+      if(Double.parseDouble(args[args.length-1]) >= 1){
+          if(((args.length-3)%4 == 0)){
+            if(time.totalSeconds % (Double.parseDouble(args[args.length-1])) == 0 && time.totalSeconds != 0){
+                System.out.println("\t\t\t\tCurrent time is " + time.toString());
+                for(int o=0;o< numBalls;o++){
+			              System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity) + ".");
+		            }
+                System.out.println("\n");
+			      }
+          }else{
+            if(time.totalSeconds % 1 == 0 && time.totalSeconds != 0){
+                System.out.println("\t\t\t\tCurrent time is " + time.toString());
+                for(int o=0;o< numBalls;o++){
+			              System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity) + ".");
+		            }
+                System.out.println("\n");
+			      }
+          }
       }else{
-        if(time.totalSeconds % 1 == 0 && time.totalSeconds != 0){
-            System.out.println("\t\t\t\tCurrent time is " + time.toString());
-            for(int o=0;o< numBalls;o++){
-			          System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity) + ".");
-		        }
-            System.out.println("\n");
-			  }
+        testing += 1;
+        System.out.println("\t\t\t\tCurrent time is " + time.toString());
+        for(int o=0;o< numBalls;o++){
+            System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity) + ".");
+        }
+        System.out.println("\n");
       }
 		    time.totalSeconds = time.tick();
+        if(Double.parseDouble(args[args.length-1]) < 1){
+          time.totalSeconds -= 1-Double.parseDouble(args[args.length-1]);
+        }
 
 			  for(int i=0;i<ballArray.length;i++){
-            //System.out.println("For Loop Working");
-/*
-            if(ballArray[i].velocity < (1/12)){
-                //System.out.println("If Loop Working");
-                ballArray[i].velocity = 0;
-                ballArray[i].isStopped = true;
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					//for negative x and y values a velocity below 1/12 does not turn into zero for some reason
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			      }
-            */
 				    if(field.isOutOfBounds(ballArray[i].xPosition,ballArray[i].yPosition) == true){
 					      ballArray[i].velocity = 0;
 					      ballArray[i].xPosition = Math.random() * 3000000 + 1000000;
 					      ballArray[i].yPosition = Math.random() * 3000000 + 1000000;
 					      ballArray[i].isStopped = true;
 // 	If isOutOfBounds is true stop that ball from being compared for collision
-//?What to do when a ball goes out of bounds?
 //If out of bounds set
 // If out of bounds then set veocity = 0, set x & y to number outside of field size (set to a very big random number ex. btwm 1 and 2 million)
 				    }
@@ -241,7 +248,7 @@ public class SoccerSim{
 					      ballArray[i].isStopped = true;
 				    }
 				    ballArray[i].updateVelocity();
-				    ballArray[i].updatePosition();
+            ballArray[i].updatePosition();
 
             if(ballArray[i].isStopped == true){
 				        stopCounter += 1;
@@ -250,7 +257,7 @@ public class SoccerSim{
                 System.out.println("          ____________________________________________________________________________________________________\n");
                 System.out.println("\t\t\t\t\t\tCOLLISION INFORMATION\n");
 					      System.out.println("\t\t\t\t\t       There were no collisions.\n\n\n\n");
-				        System.exit( 1 );
+                System.exit( 1 );
 				    }
 			  }
 

@@ -1,4 +1,7 @@
+import java.text.DecimalFormat;
+
 public class Time{
+	DecimalFormat df3 = new DecimalFormat("#0.00");
 	public static final double defaultSlice = 1; //In seconds, this is the constant time slice. The user doesn't input a time slice.
 	double totalSeconds = 0;
 
@@ -24,7 +27,7 @@ public class Time{
 	    if(totalSeconds < 43200){
 		    hours = Math.floor(totalSeconds/3600);
 	    }
-        String timeString = Double.toString(hours)+"h:"+Double.toString(minutes)+"m:"+ Double.toString(seconds)+"s";
+        String timeString = df3.format(hours)+"h:"+df3.format(minutes)+"m:"+ df3.format(seconds)+"s";
         return timeString;
 	}
 
@@ -45,7 +48,7 @@ public class Time{
 	    if(totalSeconds < 43200){
 		      hours = Math.floor(totalSeconds/3600);
 	    }
-      String timeString = Double.toString(hours)+"h:"+Double.toString(minutes)+"m:"+ Double.toString(seconds)+"s";
+      String timeString = df3.format(hours)+"h:"+df3.format(minutes)+"m:"+ df3.format(seconds)+"s";
       return timeString;
 	}
 

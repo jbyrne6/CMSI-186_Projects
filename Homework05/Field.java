@@ -3,7 +3,7 @@ public class Field{
 	double left;
 	double top;
 	double bot;
-	double radius  = 4.45;
+	double radius  = 4.45/12;
 
 	public Field(double fx,double fy){
 		right = (fx / 2) - radius;
