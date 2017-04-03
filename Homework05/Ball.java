@@ -13,6 +13,7 @@ note: have a timeslice as an input
 public class Ball{
 	public double radius = 4.45; //Radius in inches
 	public double ballRadius = 4.45/12; //Radius in feet
+	public static double colDist = 8.9/12;
 	public double xPosition;
 	public double yPosition;
 	public double velocity; //In feet per seconds
@@ -86,7 +87,7 @@ public class Ball{
 	}
 
 	public static boolean isCollided(double ballOnex,double ballOney, double ballTwox,double ballTwoy){
-		if((Math.sqrt((ballTwox-ballOnex)*(ballTwox-ballOnex) + (ballTwoy-ballOney)*(ballTwoy-ballOney))) <= (8.9/12)){
+		if((Math.sqrt((ballTwox-ballOnex)*(ballTwox-ballOnex) + (ballTwoy-ballOney)*(ballTwoy-ballOney))) <= colDist){
 			return true;
 		}else{
 			return false;
@@ -107,6 +108,6 @@ public class Ball{
 		System.out.println("Updated Velocity");
 		System.out.println(b1.updateVelocity());
 		System.out.println("Time String");
-        System.out.println(b1.toString());
+    System.out.println(b1.toString());
 	}
 }

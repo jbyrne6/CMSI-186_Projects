@@ -29,29 +29,29 @@ public class Time{
 	}
 
 	public String toStringArgs(double flagTimeSeconds){
-		double seconds = 0;
-        double minutes = 0;
-        double hours = 0;
+		  double seconds = 0;
+      double minutes = 0;
+      double hours = 0;
 	    if(totalSeconds < 60){
-		    seconds = totalSeconds;
+		      seconds = totalSeconds;
 	    }else{
-		    seconds = Math.floor(totalSeconds%60);
+		      seconds = Math.floor(totalSeconds%60);
 	    }
 	    if(totalSeconds < 3600){
-		    minutes = Math.floor(totalSeconds/60);
+		      minutes = Math.floor(totalSeconds/60);
 	    }else{
-		    minutes = Math.floor(totalSeconds%60);
+		      minutes = Math.floor(totalSeconds%60);
 	    }
 	    if(totalSeconds < 43200){
-		    hours = Math.floor(totalSeconds/3600);
+		      hours = Math.floor(totalSeconds/3600);
 	    }
-        String timeString = Double.toString(hours)+":"+Double.toString(minutes)+":"+ Double.toString(seconds);
-        return timeString;
+      String timeString = Double.toString(hours)+"h:"+Double.toString(minutes)+"m:"+ Double.toString(seconds)+"s";
+      return timeString;
 	}
 
 	public double tick(){
-		totalSeconds += defaultSlice;
-		return totalSeconds;
+		  totalSeconds += defaultSlice;
+		  return totalSeconds;
 	}
 
 }
