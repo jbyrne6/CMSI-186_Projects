@@ -1,15 +1,12 @@
-/*
-TO DO:
--Make a method that checks the distance between the center of n number of balls and with the center of the flag pole.
-+Method that checks for if the balls are out of bounds.
-?Ask Johnson how to work with multiple ball objects in SoccerSim ex: Ball1 radius compared to Ball2 compared to Ball3.
-	-make an array of ball objects
-?Can my time slice always be 1 seconds and not need to have user input for that paramater? no,
-?How many soccer balls? user decides
-+Make validate arg methods for xPosition, yPosition, direction, and velocity.
-+Make a to string method that converts the total seconds to hours,minutes,and seconds like that in Clock.
-note: have a timeslice as an input
-*/
+/*****************************************************************************************************************************************************************************************************************************
+File Name: Ball.java
+Author: James Byrne
+Date: 4/2/2017
+Class: 186
+Project Name: Soccer Simulator
+Purpose: Simulate balls being kicked and see if they collide.
+*****************************************************************************************************************************************************************************************************************************/
+
 public class Ball{
 	public double radius = 4.45; //Radius in inches
 	public double ballRadius = 4.45/12; //Radius in feet

@@ -1,17 +1,12 @@
-    /*
-    ?This is being updated every second so balls can pass each other and not be registered for a collision, How to fix?
-    ?For an unknown reason sometimes if a ball's velocity goes below 1/12 it is not registered as stopped and velocity isn't set to 0?
-    -Make a method that checks the distance between the center of n number of balls and with the center of the flag pole.
-    +Make an array that holds the ball objects
-    +Validate all input arguments
-    -Figure out what to put into the while loop.
-    	-Ball is out of bounds test
-    	-Ball is colliding with other ball test
-    	-Ball is colliding with pole test
-    	-tick
-    ?How do you put ball objects into array?
-    */
-    //first two arguments are field size, next five describe the ball object
+/*****************************************************************************************************************************************************************************************************************************
+File Name: SoccerSim.java
+Author: James Byrne
+Date: 4/2/2017
+Class: 186
+Project Name: Soccer Simulator
+Purpose: Simulate balls being kicked and see if they collide.
+*****************************************************************************************************************************************************************************************************************************/
+
 import java.text.DecimalFormat;
 
 public class SoccerSim{
