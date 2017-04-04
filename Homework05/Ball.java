@@ -1,7 +1,7 @@
 /*****************************************************************************************************************************************************************************************************************************
 File Name: Ball.java
 Author: James Byrne
-Date: 4/3/2017
+Date Last Updated: 4/3/2017
 Class: 186
 Project Name: Soccer Simulator
 Purpose: Simulate balls being kicked and see if they collide.
@@ -73,13 +73,29 @@ public class Ball{
 			xPosition += aLength;
 			yPosition += bLength;
 		}else if(direction == 0 || direction == 360){
-			xPosition += velocity*ts;
+			if(ts < 1){
+			  xPosition += velocity*ts;
+		  }else{
+			  xPosition += velocity;
+		  }
 		}else if(direction == 90){
-			yPosition += velocity*ts;
+			if(ts < 1){
+			  yPosition += velocity*ts;
+		  }else{
+			  yPosition += velocity;
+		  }
 		}else if(direction == 180){
-			xPosition -= velocity*ts;
+			if(ts < 1){
+			  xPosition -= velocity*ts;
+		  }else{
+			  xPosition -= velocity;
+		  }
 		}else if(direction == 270){
-			yPosition -= velocity*ts;
+			if(ts < 1){
+			  yPosition -= velocity*ts;
+		  }else{
+			  yPosition -= velocity;
+		  }
 		}
 	}
 
