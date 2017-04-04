@@ -1,7 +1,7 @@
 /*****************************************************************************************************************************************************************************************************************************
 File Name: SoccerSim.java
 Author: James Byrne
-Date: 4/2/2017
+Date: 4/3/2017
 Class: 186
 Project Name: Soccer Simulator
 Purpose: Simulate balls being kicked and see if they collide.
@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 public class SoccerSim{
     public static void main(String args[]){
 
-    DecimalFormat df1 = new DecimalFormat("#0.00000");
+    DecimalFormat df1 = new DecimalFormat("#0.0000");
     DecimalFormat df2 = new DecimalFormat("#0");
     Field field = new Field(Double.parseDouble(args[0]),Double.parseDouble(args[1]));
 	  Pole pole = new Pole(Double.parseDouble(args[0]),Double.parseDouble(args[1]));
@@ -165,21 +165,6 @@ public class SoccerSim{
         System.out.println("\t\t\t\t\t\tSTATUS UPDATE EVERY 1 SECOND\n");
     }
 
-    for(int q=0;q<ballArray.length;q++){
-      if(userTimeSlice < 1){
-          ballArray[q].velocity = ballArray[q].velocity*userTimeSlice;
-      }
-    }
-
-
-// -Ball is out of bounds test
-// -Ball is stopped test
-// -Ball is colliding with other ball test
-// -Ball is colliding with pole test
-//If all balls are stopped then stop the program or if a ball collides
-// -tick
-// -make counter that incraments every tick to keep track of time that things happen
-//     -Time.totalSeconds += 1
 		double totalSeconds = 0;
 		boolean ballToPoleFlag = false;
 		boolean ballToBallFlag = false;
@@ -212,7 +197,7 @@ public class SoccerSim{
       }else{
         System.out.println("\t\t\t\tCurrent time is " + time.toString());
         for(int o=0;o< numBalls;o++){
-            System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity/userTimeSlice) + ".");
+            System.out.println("\t\t\t\tBall " + (o+1) + " is at x = " + df1.format(ballArray[o].xPosition) + ", y = " + df1.format(ballArray[o].yPosition) + ", and has velocity = " + df1.format(ballArray[o].velocity) + ".");
         }
         System.out.println("\n");
       }
@@ -242,14 +227,14 @@ public class SoccerSim{
 				    if(ballArray[i].velocity == 0){
 					      ballArray[i].isStopped = true;
 				    }
-            if(userTimeSlice < 1 && Math.ceil(time.totalSeconds) == time.totalSeconds){
-              ballArray[i].updateVelocity();
+            if(userTimeSlice < 1){
+              ballArray[i].velocity = ballArray[i].velocity-(ballArray[i].velocity*.01*userTimeSlice);
+              ballArray[i].updatePosition(userTimeSlice);
             }
 				    if(userTimeSlice >= 1){
               ballArray[i].updateVelocity();
+              ballArray[i].updatePosition(userTimeSlice);
             }
-
-            ballArray[i].updatePosition();
 
             if(ballArray[i].isStopped == true){
 				        stopCounter += 1;
@@ -261,8 +246,6 @@ public class SoccerSim{
                 System.exit( 1 );
 				    }
 			  }
-
-        //System.out.println("\n");
 			  //Compare ball positions
 			  for(int I=0;I<(ballArray.length-1);I++){
 				    for(int J=1+I;J<(ballArray.length);J++){

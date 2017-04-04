@@ -1,7 +1,7 @@
 /*****************************************************************************************************************************************************************************************************************************
 File Name: Time.java
 Author: James Byrne
-Date: 4/2/2017
+Date: 4/3/2017
 Class: 186
 Project Name: Soccer Simulator
 Purpose: Simulate balls being kicked and see if they collide.
@@ -21,8 +21,8 @@ public class Time{
 
     public String toString(){
 	    double seconds = 0;
-        double minutes = 0;
-        double hours = 0;
+      double minutes = 0;
+      double hours = 0;
 	    if(totalSeconds < 60){
 		    seconds = totalSeconds;
 	    }else{

@@ -1,7 +1,7 @@
 /*****************************************************************************************************************************************************************************************************************************
 File Name: Pole.java
 Author: James Byrne
-Date: 4/2/2017
+Date: 4/3/2017
 Class: 186
 Project Name: Soccer Simulator
 Purpose: Simulate balls being kicked and see if they collide.
