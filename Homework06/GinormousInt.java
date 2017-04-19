@@ -4,26 +4,28 @@ public class GinormousInt{
   public static final GinormousInt TEN = new GinormousInt("10");
   private String gStr;
   private int gInt;
-  private String sign;
+  private String sign = "";
   private int[] intArray;
   private boolean isGreaterThan = false;
   private boolean isLessThan = false;
   private int equalCounter = 0;
-  private String intString;
+  private String intString = "";
   private String intToString;
+  char[] charArrayNoSign;
 
   //Constructor
   public GinormousInt(String value){
+    //System.out.println("Value: " + value);
     //get rids of spaces
     gStr = value.trim();
     //creates character array
     char[] charArray = gStr.toCharArray();
     if(charArray[0] == '+' || charArray[0] == '-'){
       //gets the sign
-      String sign = String.valueOf(charArray[0]);
+      sign = String.valueOf(charArray[0]);
       //deletes sign
       gStr = gStr.substring(1,charArray.length);
-      char[] charArrayNoSign = gStr.toCharArray();
+      charArrayNoSign = gStr.toCharArray();
       //split string into parts
       intArray = new int[charArrayNoSign.length];
       for(int i=0; i<intArray.length;i++){
@@ -31,10 +33,11 @@ public class GinormousInt{
         intString = intString + Character.toString(charArrayNoSign[i]);
       }
     }else{
-      String[] gStrParts = gStr.split("");
-      intArray = new int[gStrParts.length];
-      for(int i=0; i<gStrParts.length; i++){
-        intArray[i] = Integer.parseInt(gStrParts[i]);
+      charArrayNoSign = gStr.toCharArray();
+      intArray = new int[charArrayNoSign.length];
+      for(int n=0; n<intArray.length; n++){
+        intArray[n] = Character.getNumericValue(charArrayNoSign[n]);
+        intString = intString + Character.toString(charArrayNoSign[n]);
       }
     }
   }
@@ -87,17 +90,17 @@ public class GinormousInt{
 
 //  g1.add(g2)
 
-  public GinormousInt add(GinormousInt value){
+  public GinormousInt add(GinormousInt value){;
     int addCarry = 0;
     int piece = 0;
     String pieceString = "";
-    String answerString = "";
-    if(intArray.length > value.intArray.length){
-      for(int i=0;i<intArray.length-value.intArray.length;i++){
+    String addAnswerString = "";
+    if(intString.length() > value.intString.length()){
+      for(int i=0;i<charArrayNoSign.length-value.charArrayNoSign.length;i++){
         value.intString = "0" + value.intString;
       }
-    }else if(intArray.length < value.intArray.length){
-      for(int i=0;i<value.intArray.length-intArray.length;i++){
+    }else if(intString.length() < value.intString.length()){
+      for(int i=0;i<value.charArrayNoSign.length-charArrayNoSign.length;i++){
         intString  = "0" + intString;
       }
     }else{
@@ -105,10 +108,7 @@ public class GinormousInt{
     }
     String[] intStringArray1 = intString.split("");
     String[] intStringArray2 = value.intString.split("");
-    //for(int j=0;j<intStringArray1.length;j++){
-    //  intArray[j] = Integer.parseInt(intStringArray1[j]);
-    //  value.intArray[j] = Integer.parseInt(intStringArray2[j]);
-    //}
+
     for(int k=0;k<intStringArray1.length;k++){
       piece = addCarry + Integer.parseInt(intStringArray1[intStringArray1.length-(k+1)]) + Integer.parseInt(intStringArray2[intStringArray2.length-(k+1)]);
       pieceString = Integer.toString(piece);
@@ -119,18 +119,59 @@ public class GinormousInt{
         piece = Integer.parseInt(parts[1]);
         pieceString = parts[1];
       }
-      answerString = pieceString + answerString;
+      addAnswerString = pieceString + addAnswerString;
     }
-    if(addCarry != 0){
-      answerString = Integer.toString(addCarry) + answerString;
+    if(charArrayNoSign[0] != '+' && charArrayNoSign[0] != '-' ){
+      addAnswerString = sign + addAnswerString;
     }
-    return new GinormousInt(answerString);
+    return new GinormousInt(sign + addAnswerString);
 
     //throw new UnsupportedOperationException("Not working yet.");
   }
 
   public GinormousInt subtract(GinormousInt value){
-    throw new UnsupportedOperationException("Not working yet.");
+    int piece = 0;
+    String pieceString = "";
+    String subAnswerString = "";
+    if(intString.length() > value.intString.length()){
+      for(int i=0;i<charArrayNoSign.length-value.charArrayNoSign.length;i++){
+        value.intString = "0" + value.intString;
+      }
+    }else if(intString.length() < value.intString.length()){
+      for(int i=0;i<value.charArrayNoSign.length-charArrayNoSign.length;i++){
+        intString  = "0" + intString;
+      }
+    }else{
+
+    }
+    System.out.println("IS : " + intString);
+    System.out.println("VIS: " + value.intString);
+    String[] intStringArrayTop;
+    String[] intStringArrayBot;
+    if(compareTo(value) == 1){
+      intStringArrayTop = intString.split("");
+      intStringArrayBot = value.intString.split("");
+    }else if(compareTo(value) == -1){
+      intStringArrayTop = value.intString.split("");
+      intStringArrayBot = intString.split("");
+    }else{
+      intStringArrayTop = intString.split("");
+      intStringArrayBot = value.intString.split("");
+    }
+    for(int i=0; i<intStringArrayTop.length;i++){
+      if(Integer.parseInt(intStringArrayTop[intStringArrayTop.length-(i+1)]) < Integer.parseInt(intStringArrayBot[intStringArrayBot.length-(i+1)])){
+        intStringArrayTop[intStringArrayTop.length-(i+2)] = Integer.toString(Integer.parseInt(intStringArrayTop[intStringArrayTop.length-(i+2)]) - 1);
+        intStringArrayTop[intStringArrayTop.length-(i+1)] = Integer.toString(Integer.parseInt(intStringArrayTop[intStringArrayTop.length-(i+1)]) + 10);
+      }
+      piece = Integer.parseInt(intStringArrayTop[intStringArrayTop.length-(i+1)]) - Integer.parseInt(intStringArrayBot[intStringArrayBot.length-(i+1)]);
+      pieceString = Integer.toString(piece);
+    }
+    subAnswerString = pieceString + subAnswerString;
+    if(charArrayNoSign[0] != '+' && charArrayNoSign[0] != '-' ){
+      subAnswerString = sign + subAnswerString;
+    }
+    return new GinormousInt(sign + subAnswerString);
+    //throw new UnsupportedOperationException("Not working yet.");
   }
 
   public GinormousInt multiply(GinormousInt value){
@@ -151,6 +192,9 @@ public class GinormousInt{
     intToString = Integer.toString(intArray[0]);
     for(int i=1;i<intArray.length;i++){
       intToString = intToString + Integer.toString(intArray[i]);
+    }
+    if(intToString.length() == charArrayNoSign.length){
+      intToString = sign + intToString;
     }
     return intToString;
   }
