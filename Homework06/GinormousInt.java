@@ -108,6 +108,7 @@ public class GinormousInt{
     int piece = 0;
     String pieceString = "";
     String addAnswerString = "";
+    String specialCarryMarker = "";
     if(intString.length() > value.intString.length()){
       for(int i=0;i<charArrayNoSign.length-value.charArrayNoSign.length;i++){
         value.intString = "0" + value.intString;
@@ -129,13 +130,16 @@ public class GinormousInt{
         addCarry = Integer.parseInt(parts[0]);
         piece = Integer.parseInt(parts[1]);
         pieceString = parts[1];
+        if(k==intStringArray1.length-1){
+          specialCarryMarker = Integer.toString(addCarry);
+        }
       }
-      addAnswerString = pieceString + addAnswerString;
-      System.out.println("Piece String " + pieceString);
-      System.out.println("Carry " + addCarry);
-      System.out.println("piece "  + piece);
+      addAnswerString = specialCarryMarker + pieceString + addAnswerString;
+      //System.out.println("Piece String " + pieceString);
+      //System.out.println("Carry " + addCarry);
+      //System.out.println("piece "  + piece);
     }
-    System.out.println(sign);
+    //System.out.println(sign);
 
     return new GinormousInt(sign + addAnswerString);
 
@@ -184,7 +188,22 @@ public class GinormousInt{
   }
 
   public GinormousInt multiply(GinormousInt value){
-    throw new UnsupportedOperationException("Not working yet.");
+    GinormousInt n1 = new GinormousInt(this.intString);
+    GinormousInt n2 = new GinormousInt(value.intString);
+    char[] n1Char = n1.intString.toCharArray();
+    String n2Value = "";
+    int total = 0;
+    while(!n1.intString.equals("1")){
+      if(n1Char[n1.intString.length()-1]%2 != 0){
+        total += Integer.parseInt(n2.intString);
+      }
+      n1 = new GinormousInt(n1.halve(n1.intString));
+      n2 = new GinormousInt((n2.add(n2)).intString);
+      n1Char = n1.intString.toCharArray();
+    }
+    total += Integer.parseInt(n2.intString);
+    String totalStr = Integer.toString(total);
+    return new GinormousInt(totalStr);
   }
 
   public GinormousInt divide(GinormousInt value){

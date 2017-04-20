@@ -40,6 +40,7 @@ public class GinormousIntTester {
    private static String g18String = "";
    private static String g19String = "";
    private static String g20String = "";
+   private static String gmeString = "80";
 
    private static GinormousInt g1 = null;
    private static GinormousInt g2 = null;
@@ -61,6 +62,7 @@ public class GinormousIntTester {
    private static GinormousInt g18 = null;
    private static GinormousInt g19 = null;
    private static GinormousInt g20 = null;
+   private static GinormousInt gme = null;
 
 
    public GinormousIntTester() {
@@ -381,6 +383,14 @@ public class GinormousIntTester {
          System.out.println( "\n      Test 032: Adding g4 and g1 using ints: " );
          System.out.println( "      expecting: 144127909719725076806064402568842359092656528233967026820237074760\n" +
                              "        and got: " + g4.add( g1 ) );
+      }
+      catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
+
+      gme = new GinormousInt( gmeString );
+      try {
+         System.out.println( "\n      Test something: Adding gme and gyou using ints: " );
+         System.out.println( "      expecting: 160\n" +
+                             "        and got: " + gme.add( gme ) );
       }
       catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
