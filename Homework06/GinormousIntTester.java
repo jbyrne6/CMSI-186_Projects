@@ -1,8 +1,8 @@
 /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * File name  :  GinormousIntTester.java
  * Purpose    :  Test Harness for the GinormousInt java class
- * @author    :  B.J. Johnson
- * Date       :  2017-04-05
+ * @author    :  James Byrne
+ * Date       :  2017-04-20
  * Description:  @see <a href='http://bjohnson.lmu.build/cmsi186web/homework06.html'>Assignment Page</a>
  * Notes      :  None
  * Warnings   :  None
@@ -12,13 +12,7 @@
  * ================
  *   Ver      Date     Modified by:  Reason for change or modification
  *  -----  ----------  ------------  ---------------------------------------------------------------------
- *  1.0.0  2017-04-05  B.J. Johnson  Initial writing and release
- *  1.1.0  2017-04-13  B.J. Johnson  Added new GinormousInt instances to check addition; refactored to
- *                                     check the new versions of compareTo and equals; verified that all
- *                                     additions work for both small and large numbers, as well as for
- *                                     values of different lengths and including same-sign negative value
- *                                     additions; ready to start subtract and subtractInt methods
- *
+ *  1.0.0  2017-04-20  James Byrne  Initial writing and release
  *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 public class GinormousIntTester {
@@ -270,23 +264,12 @@ public class GinormousIntTester {
       }
       catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
-      //try {
-      //   System.out.println( "    Test 016: Adding g11 and g13 [10 + 234567] : " );
-      //   System.out.println( "      expecting: 234577 and got " + g11.addByte( g13 ) );
-      //}
-      //catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
-
       try {
          System.out.println( "    Test 017: Adding g11 and g13 [10 + 234567] using ints: " );
          System.out.println( "      expecting: 234577 and got " + g11.add( g13 ) );
       }
       catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
-      //try {
-      //   System.out.println( "    Test 018: Adding g13 and g11 [234567 + 10] : " );
-      //   System.out.println( "      expecting: 234577 and got " + g13.addByte( g11 ) );
-      //}
-      //catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
       try {
          System.out.println( "    Test 019: Adding g13 and g11 [234567 + 10] using ints: " );
@@ -318,23 +301,11 @@ public class GinormousIntTester {
       }
       catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
-      //try {
-      //   System.out.println( "    Test 022: Adding g14 and g15 [-234567 + -10] : " );
-      //   System.out.println( "      expecting: -234577 and got " + g14.addByte( g15 ) );
-      //}
-      //catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
-
       try {
          System.out.println( "    Test 023: Adding g14 and g15 [-234567 + -10] using ints: " );
          System.out.println( "      expecting: -234577 and got " + g14.add( g15 ) );
       }
       catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
-
-      //try {
-      //   System.out.println( "    Test 024: Adding g15 and g14 [-10 + -234567] : " );
-      //   System.out.println( "      expecting: -234577 and got " + g15.addByte( g14 ) );
-      //}
-      //catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
       try {
          System.out.println( "    Test 025: Adding g15 and g14 [-10 + -234567] using ints: " );
@@ -350,36 +321,18 @@ public class GinormousIntTester {
       }
       catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
-      //try {
-      //   System.out.println( "    Test 027: Adding g14 and g16 [-234567 + -999999] : " );
-      //   System.out.println( "      expecting: -1234566 and got " + g14.addByte( g16 ) );
-      //}
-      //catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
-
       try {
          System.out.println( "    Test 028: Adding g14 and g16 [-234567 + -999999] using ints: " );
          System.out.println( "      expecting: -1234566 and got " + g14.add( g16 ) );
       }
       catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
-      //try {
-      //   System.out.println( "    Test 029: Adding g16 and g14 [-999999 + -234567] : " );
-      //   System.out.println( "      expecting: -1234566 and got " + g16.addByte( g14 ) );
-      //}
-      //catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
       try {
          System.out.println( "    Test 030: Adding g16 and g14 [-999999 + -234567] using ints: " );
          System.out.println( "      expecting: -1234566 and got " + g16.add( g14 ) );
       }
       catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
-
-      //try {
-      //   System.out.println( "\n      Test 031: Adding g1 and g4 : " );
-      //   System.out.println( "      expecting: 144127909719725076806064402568842359092656528233967026820237074760\n" +
-      //                       "        and got: " + g1.addByte( g4 ) );
-      //}
-      //catch( Exception e ) { System.out.println( "        Exception thrown:  " ); }
 
       try {
          System.out.println( "\n      Test 032: Adding g4 and g1 using ints: " );

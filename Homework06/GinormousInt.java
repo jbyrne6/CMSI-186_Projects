@@ -1,3 +1,20 @@
+/** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * File name  :  GinormousInt.java
+ * Purpose    :  Contains Big Integer Methods and Constructor
+ * @author    :  James Byrne
+ * Date       :  2017-04-20
+ * Description:  @see <a href='http://bjohnson.lmu.build/cmsi186web/homework06.html'>Assignment Page</a>
+ * Notes      :  None
+ * Warnings   :  None
+ *
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Revision History
+ * ================
+ *   Ver      Date     Modified by:  Reason for change or modification
+ *  -----  ----------  ------------  ---------------------------------------------------------------------
+ *  1.0.0  2017-04-20  James Byrne  Initial writing and release
+ *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 public class GinormousInt{
   public static final GinormousInt ZERO = new GinormousInt("0");
   public static final GinormousInt ONE = new GinormousInt("1");
@@ -48,29 +65,6 @@ public class GinormousInt{
   }
 
   public int compareTo(GinormousInt value){
-/*
-    if(intArray.length<value.intArray.length){
-      return -1;
-    }else if(intArray.length>value.intArray.length){
-      return 1;
-    }else if(intArray.length == value.intArray.length){
-      for(int i=0;i<intArray.length;i++){
-        if(intArray[i] == value.intArray[i]){
-          return 0;
-        }else if(intArray[i]>value.intArray[i]){
-          isGreaterThan = true;
-        }else if(intArray[i]<value.intArray[i]){
-          isLessThan = true;
-        }
-      }
-    }
-    if(isLessThan == true){
-      return -1;
-    }
-    if(isGreaterThan == true){
-      return 1;
-    }
-*/
     int var = intString.compareTo(value.intString);
     if(intString.compareTo(value.intString) == 4){
       var = 1;
@@ -78,7 +72,6 @@ public class GinormousInt{
       var = -1;
     }
     return var;
-    //throw new UnsupportedOperationException("Not working yet.");
   }
 
 
@@ -99,16 +92,11 @@ public class GinormousInt{
         return false;
       }
     }
-    //throw new UnsupportedOperationException("Not working yet.");
   }
-
-//  g1.add(g2)
 
   public GinormousInt add(GinormousInt value){;
     if(value.sign.equals("-") ^ this.sign.equals("-") && fromSubFlag == false){
       return this.subtract(value);
-    //}//else if(value.sign.equals("-") ^ this.sign.equals("") && fromSubFlag == false && this.compareTo(value) > 0){
-      //return this.subtract(value);
     }else{
     int addCarry = 0;
     int piece = 0;
@@ -140,15 +128,9 @@ public class GinormousInt{
         }
       }
       addAnswerString = specialCarryMarker + pieceString + addAnswerString;
-      //System.out.println("Piece String " + pieceString);
-      //System.out.println("Carry " + addCarry);
-      //System.out.println("piece "  + piece);
     }
-    //System.out.println(sign);
-
     return new GinormousInt(sign + addAnswerString);
   }
-    //throw new UnsupportedOperationException("Not working yet.");
   }
 
   public GinormousInt subtract(GinormousInt value){
@@ -176,8 +158,6 @@ public class GinormousInt{
         intString  = "0" + intString;
       }
     }
-    //System.out.println("IS : " + intString);
-    //System.out.println("VIS: " + value.intString);
     String[] intStringArrayTop;
     String[] intStringArrayBot;
     if(compareTo(value) > 0){
@@ -202,8 +182,6 @@ public class GinormousInt{
     System.out.println("sign = " + sign);
     System.out.println("value sign = " + value.sign);
     return new GinormousInt(sign + subAnswerString);
-
-    //throw new UnsupportedOperationException("Not working yet.");
   }
 
   public GinormousInt multiply(GinormousInt value){
@@ -216,14 +194,8 @@ public class GinormousInt{
       if(n1Char[n1.intString.length()-1]%2 != 0){
         total += Integer.parseInt(n2.intString);
       }
-      //System.out.println("n1 = " + n1.intString);
-      //System.out.println("n2 = " + n2.intString);
-      //System.out.println("half = " + n1.halve(n1.intString));
-      //System.out.println("Total = " + total);
       if(Integer.parseInt(n1.intString)%(20) == 0){
-        //System.out.println("stuff");
         n1.intString = Integer.toString(Integer.parseInt(n1.halve(n1.intString)) * 10);
-        //System.out.println("n1 2= " + n1.intString);
       }else{
         n1 = new GinormousInt(n1.halve(n1.intString));
       }
@@ -248,7 +220,6 @@ public class GinormousInt{
   // Constructor in reverse
   // change int array to a string
   public String toString(){
-    //throw new UnsupportedOperationException("Not working yet.");
     intToString = Integer.toString(intArray[0]);
     for(int i=1;i<intArray.length;i++){
       intToString = intToString + Integer.toString(intArray[i]);
@@ -263,8 +234,6 @@ public class GinormousInt{
     String longString;
     longString = String.valueOf(value);
     return new GinormousInt(longString);
-    //String[] lsParts = longString.split("");
-    //throw new UnsupportedOperationException("Not working yet.");
   }
 
   public String halve( String input ) {
