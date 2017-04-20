@@ -12,6 +12,10 @@ public class GinormousInt{
   private String intString = "";
   private String intToString;
   char[] charArrayNoSign;
+  private String myNumber = "";
+  private String reversed = "";
+  private byte[] a        = null;
+  private byte[] b        = null;
 
   //Constructor
   public GinormousInt(String value){
@@ -43,6 +47,7 @@ public class GinormousInt{
   }
 
   public int compareTo(GinormousInt value){
+/*
     if(intArray.length<value.intArray.length){
       return -1;
     }else if(intArray.length>value.intArray.length){
@@ -64,7 +69,15 @@ public class GinormousInt{
     if(isGreaterThan == true){
       return 1;
     }
-    throw new UnsupportedOperationException("Not working yet.");
+*/
+    int var = intString.compareTo(value.intString);
+    if(intString.compareTo(value.intString) == 4){
+      var = 1;
+    }else if(intString.compareTo(value.intString) == -4){
+      var = -1;
+    }
+    return var;
+    //throw new UnsupportedOperationException("Not working yet.");
   }
 
 
@@ -103,8 +116,6 @@ public class GinormousInt{
       for(int i=0;i<value.charArrayNoSign.length-charArrayNoSign.length;i++){
         intString  = "0" + intString;
       }
-    }else{
-
     }
     String[] intStringArray1 = intString.split("");
     String[] intStringArray2 = value.intString.split("");
@@ -120,10 +131,12 @@ public class GinormousInt{
         pieceString = parts[1];
       }
       addAnswerString = pieceString + addAnswerString;
+      System.out.println("Piece String " + pieceString);
+      System.out.println("Carry " + addCarry);
+      System.out.println("piece "  + piece);
     }
-    if(charArrayNoSign[0] != '+' && charArrayNoSign[0] != '-' ){
-      addAnswerString = sign + addAnswerString;
-    }
+    System.out.println(sign);
+
     return new GinormousInt(sign + addAnswerString);
 
     //throw new UnsupportedOperationException("Not working yet.");
@@ -141,17 +154,15 @@ public class GinormousInt{
       for(int i=0;i<value.charArrayNoSign.length-charArrayNoSign.length;i++){
         intString  = "0" + intString;
       }
-    }else{
-
     }
-    System.out.println("IS : " + intString);
-    System.out.println("VIS: " + value.intString);
+    //System.out.println("IS : " + intString);
+    //System.out.println("VIS: " + value.intString);
     String[] intStringArrayTop;
     String[] intStringArrayBot;
-    if(compareTo(value) == 1){
+    if(compareTo(value) > 0){
       intStringArrayTop = intString.split("");
       intStringArrayBot = value.intString.split("");
-    }else if(compareTo(value) == -1){
+    }else if(compareTo(value) < 0){
       intStringArrayTop = value.intString.split("");
       intStringArrayBot = intString.split("");
     }else{
@@ -165,11 +176,9 @@ public class GinormousInt{
       }
       piece = Integer.parseInt(intStringArrayTop[intStringArrayTop.length-(i+1)]) - Integer.parseInt(intStringArrayBot[intStringArrayBot.length-(i+1)]);
       pieceString = Integer.toString(piece);
+      subAnswerString = pieceString + subAnswerString;
     }
-    subAnswerString = pieceString + subAnswerString;
-    if(charArrayNoSign[0] != '+' && charArrayNoSign[0] != '-' ){
-      subAnswerString = sign + subAnswerString;
-    }
+
     return new GinormousInt(sign + subAnswerString);
     //throw new UnsupportedOperationException("Not working yet.");
   }
@@ -205,5 +214,42 @@ public class GinormousInt{
     return new GinormousInt(longString);
     //String[] lsParts = longString.split("");
     //throw new UnsupportedOperationException("Not working yet.");
+  }
+
+  public String halve( String input ) {
+
+    // declare and initialize the variables
+     int          j        = 0;
+     String       result_s = null;
+     StringBuffer result   = null;
+
+     myNumber = input;
+     reversed = new String( new StringBuffer( myNumber ).reverse() );
+     a = new byte[myNumber.length() + 1];   // extra place to handle "carry"
+     b = new byte[myNumber.length()];
+
+    // assign the values to the byte array
+     for( int i = 0; i < a.length - 1; i++ ) {
+        a[i] = (byte)((int)(myNumber.charAt(i)) - 48);         // NOTE: only works for ASCII
+     }
+
+    // do the division
+     for( int i = 0; i < b.length; i++ ) {
+        b[i] = (byte)((int)a[i] / 2);
+        if( 1 == ((int)a[i] - ((int)b[i] * 2)) ) {
+           a[i+1] = (byte)((int)a[i+1] + 10);
+        }
+     }
+
+    // build the result string to pass back
+     result = new StringBuffer();
+     for( int i = 0; i < a.length - 1; i++ ) {
+        if( 0 == b[i] ) {
+           continue;
+        }
+        result = result.append( (int)b[i] );
+     }
+     return new String( result );
+
   }
 }
