@@ -16,6 +16,7 @@ public class GinormousInt{
   private String reversed = "";
   private byte[] a        = null;
   private byte[] b        = null;
+  private boolean fromSubFlag = false;
 
   //Constructor
   public GinormousInt(String value){
@@ -104,6 +105,11 @@ public class GinormousInt{
 //  g1.add(g2)
 
   public GinormousInt add(GinormousInt value){;
+    if(value.sign.equals("-") ^ this.sign.equals("-") && fromSubFlag == false){
+      return this.subtract(value);
+    //}//else if(value.sign.equals("-") ^ this.sign.equals("") && fromSubFlag == false && this.compareTo(value) > 0){
+      //return this.subtract(value);
+    }else{
     int addCarry = 0;
     int piece = 0;
     String pieceString = "";
@@ -120,7 +126,6 @@ public class GinormousInt{
     }
     String[] intStringArray1 = intString.split("");
     String[] intStringArray2 = value.intString.split("");
-
     for(int k=0;k<intStringArray1.length;k++){
       piece = addCarry + Integer.parseInt(intStringArray1[intStringArray1.length-(k+1)]) + Integer.parseInt(intStringArray2[intStringArray2.length-(k+1)]);
       pieceString = Integer.toString(piece);
@@ -142,11 +147,23 @@ public class GinormousInt{
     //System.out.println(sign);
 
     return new GinormousInt(sign + addAnswerString);
-
+  }
     //throw new UnsupportedOperationException("Not working yet.");
   }
 
   public GinormousInt subtract(GinormousInt value){
+    if(value.sign.equals("") && sign.equals("") && compareTo(value) < 0){
+      this.sign = "-";
+    }else if(sign.equals("") && value.sign.equals("-") && compareTo(value) > 0){
+      fromSubFlag = true;
+      return this.add(value);
+    }else if(sign.equals("-") && value.sign.equals("-") && compareTo(value) < 0){
+      this.sign = "";
+    }else if(sign.equals("-") && value.sign.equals("") && compareTo(value) < 0){
+      fromSubFlag = true;
+      return this.add(value);
+    }
+
     int piece = 0;
     String pieceString = "";
     String subAnswerString = "";
@@ -182,8 +199,10 @@ public class GinormousInt{
       pieceString = Integer.toString(piece);
       subAnswerString = pieceString + subAnswerString;
     }
-
+    System.out.println("sign = " + sign);
+    System.out.println("value sign = " + value.sign);
     return new GinormousInt(sign + subAnswerString);
+
     //throw new UnsupportedOperationException("Not working yet.");
   }
 
@@ -197,12 +216,25 @@ public class GinormousInt{
       if(n1Char[n1.intString.length()-1]%2 != 0){
         total += Integer.parseInt(n2.intString);
       }
-      n1 = new GinormousInt(n1.halve(n1.intString));
+      //System.out.println("n1 = " + n1.intString);
+      //System.out.println("n2 = " + n2.intString);
+      //System.out.println("half = " + n1.halve(n1.intString));
+      //System.out.println("Total = " + total);
+      if(Integer.parseInt(n1.intString)%(20) == 0){
+        //System.out.println("stuff");
+        n1.intString = Integer.toString(Integer.parseInt(n1.halve(n1.intString)) * 10);
+        //System.out.println("n1 2= " + n1.intString);
+      }else{
+        n1 = new GinormousInt(n1.halve(n1.intString));
+      }
       n2 = new GinormousInt((n2.add(n2)).intString);
       n1Char = n1.intString.toCharArray();
     }
     total += Integer.parseInt(n2.intString);
-    String totalStr = Integer.toString(total);
+    if(value.sign.equals("-") || sign.equals("-")){
+      sign = "-";
+    }
+    String totalStr = sign + Integer.toString(total);
     return new GinormousInt(totalStr);
   }
 
