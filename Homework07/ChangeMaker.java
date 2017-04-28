@@ -1,3 +1,9 @@
+/**
+ * This program determines the optimal change to give your for any amount of money in any currency.
+ * @author James Byrne
+ * @version 1.0.0
+ * @since 4/27/2017
+ */
 public class ChangeMaker {
 
     public static void main(String[] args) {
@@ -54,7 +60,12 @@ public class ChangeMaker {
             printUsage();
         }
     }
-
+/**
+ * [makeChangeWithDynamicProgramming description]
+ * @param  int[] denominations [An int array of the types of coin to make up change.]
+ * @param  int   amount        [The total amount of money trying to be made out of the denominations.]
+ * @return       [returns the optimal tuple which contains the amount of each denomination for the least coins given back in change]
+ */
     public static Tuple makeChangeWithDynamicProgramming(int[] denominations, int amount) {
       Tuple[][] table = new Tuple[denominations.length][amount+1];
       for(int i=0;i<denominations.length;i++){
