@@ -14,8 +14,10 @@ public class ChangeMakerTestHarness {
         // Add more!
         // A few examples:
         //
-        // test_SwissFrancs(); // 5,10,20,50 (NO 1 CENT COIN!)
-        // test_Keckels(); // 7,3,29,15,53 (Made-up currency with non-standard denominations)
+        test_SwissFrancs(); // 5,10,20,50 (NO 1 CENT COIN!)
+        test_SwissFrancs2();
+        test_Keckels(); // 7,3,29,15,53 (Made-up currency with non-standard denominations)
+        test_lozOotRupee();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -156,5 +158,130 @@ public class ChangeMakerTestHarness {
             displayFailure();
         }
 
+    }
+
+    public static void test_SwissFrancs() {
+        int[] swissfrancsDenominations = new int[] { 5, 10, 20, 50 };
+
+        Tuple result = ChangeMaker.makeChangeWithDynamicProgramming(swissfrancsDenominations, 444);
+        try {
+            displaySuccessIfTrue(result == Tuple.IMPOSSIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+    }
+
+    public static void test_SwissFrancs2() {
+        int[] swissfrancs2Denominations = new int[] { 5, 10, 20, 50 };
+
+        Tuple result = ChangeMaker.makeChangeWithDynamicProgramming(swissfrancs2Denominations, 235);
+        try {
+            displaySuccessIfTrue(1 == result.getElement(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(1 == result.getElement(1));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(1 == result.getElement(2));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(4 == result.getElement(3));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+    }
+
+    public static void test_Keckels() {
+        int[] test_Keckels = new int[] { 7, 3, 29, 15, 53 };
+
+        Tuple result = ChangeMaker.makeChangeWithDynamicProgramming(test_Keckels, 100);
+        try {
+            displaySuccessIfTrue(0 == result.getElement(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(1 == result.getElement(1));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(1 == result.getElement(2));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(1 == result.getElement(3));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(1 == result.getElement(4));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+    }
+
+    public static void test_lozOotRupee() {
+        int[] test_lozOotRupee = new int[] { 1, 5, 20, 50, 200 };
+
+        Tuple result = ChangeMaker.makeChangeWithDynamicProgramming(test_lozOotRupee, 500);
+        try {
+            displaySuccessIfTrue(0 == result.getElement(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(0 == result.getElement(1));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(0 == result.getElement(2));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(2 == result.getElement(3));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
+
+        try {
+            displaySuccessIfTrue(2 == result.getElement(4));
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayFailure();
+        }
     }
 }
