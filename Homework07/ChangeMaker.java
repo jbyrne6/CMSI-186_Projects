@@ -2,7 +2,7 @@
  * This program determines the optimal change to give your for any amount of money in any currency.
  * @author James Byrne
  * @version 1.0.0
- * @since 4/27/2017
+ * @since 4/30/2017
  */
 public class ChangeMaker {
 

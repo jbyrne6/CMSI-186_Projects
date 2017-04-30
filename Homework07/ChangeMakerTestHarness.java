@@ -1,3 +1,9 @@
+/**
+ * This program tests the ChangeMaker program.
+ * @author James Byrne
+ * @version 1.0.0
+ * @since 4/30/2017
+ */
 public class ChangeMakerTestHarness {
 
     private static int attempts = 0;
