@@ -13,21 +13,21 @@ public class ChangeMakerTestHarness {
         attempts = 0;
         successes = 0;
 
-        test_Euros(); // 1,2,5,10,20,50
+        test_Euros();
         test_USA();
         test_Notebook();
         test_Notebook2();
-        // Add more!
-        // A few examples:
-        //
-        test_SwissFrancs(); // 5,10,20,50 (NO 1 CENT COIN!)
+        test_SwissFrancs();
         test_SwissFrancs2();
-        test_Keckels(); // 7,3,29,15,53 (Made-up currency with non-standard denominations)
+        test_Keckels(); 
         test_lozOotRupee();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
-
+/**
+ * [displaySuccessIfTrue description]
+ * @param boolean value [true if sucessful, false if not]
+ */
     private static void displaySuccessIfTrue(boolean value) {
         attempts++;
         successes += value ? 1 : 0;
@@ -38,7 +38,11 @@ public class ChangeMakerTestHarness {
     private static void displayFailure() {
         displaySuccessIfTrue(false);
     }
-
+/**
+ * [test_Euros description]
+ * tests Euros [10, 50, 5, 1, 20, 2]
+ * Total: 147
+ */
     public static void test_Euros() {
         int[] eurosDenominations = new int[] { 10, 50, 5, 1, 20, 2 };
 
@@ -85,7 +89,11 @@ public class ChangeMakerTestHarness {
             displayFailure();
         }
     }
-
+/**
+ * [test_USA description]
+ * test US coins [25, 5, 1, 10]
+ * Total: 99
+ */
     public static void test_USA() {
         int[] usaDenominations = new int[] { 25, 5, 1, 10 };
 
@@ -118,11 +126,15 @@ public class ChangeMakerTestHarness {
             displayFailure();
         }
     }
+/**
+ * [test_Notebook2 description]
+ *test dynamic programming example 2 from in class [2, 3]
+ *Total: 6
+ */
+    public static void test_Notebook2() {
+        int[] notebook2Denominations = new int[] { 2, 3};
 
-    public static void test_Notebook() {
-        int[] notebookDenominations = new int[] { 2, 3};
-
-        Tuple result = ChangeMaker.makeChangeWithDynamicProgramming(notebookDenominations, 6);
+        Tuple result = ChangeMaker.makeChangeWithDynamicProgramming(notebook2Denominations, 6);
         try {
             displaySuccessIfTrue(0 == result.getElement(0));
         } catch (Exception e) {
@@ -138,11 +150,15 @@ public class ChangeMakerTestHarness {
         }
 
     }
+/**
+ * [test_Notebook description]
+ * test dynamic programming example 1 from in class [8, 3, 5]
+ * Total: 11
+ */
+    public static void test_Notebook() {
+        int[] notebookDenominations = new int[] { 8, 3, 5};
 
-    public static void test_Notebook2() {
-        int[] notebook2Denominations = new int[] { 8, 3, 5};
-
-        Tuple result = ChangeMaker.makeChangeWithDynamicProgramming(notebook2Denominations, 11);
+        Tuple result = ChangeMaker.makeChangeWithDynamicProgramming(notebookDenominations, 11);
         try {
             displaySuccessIfTrue(1 == result.getElement(0));
         } catch (Exception e) {
@@ -165,7 +181,12 @@ public class ChangeMakerTestHarness {
         }
 
     }
-
+/**
+ * [test_SwissFrancs description]
+ * test Swiss Francs [5, 10, 20, 50]
+ * Total: 444
+ * It is impossible to total 444 with these denominations
+ */
     public static void test_SwissFrancs() {
         int[] swissfrancsDenominations = new int[] { 5, 10, 20, 50 };
 
@@ -177,7 +198,11 @@ public class ChangeMakerTestHarness {
             displayFailure();
         }
     }
-
+/**
+ * [test_SwissFrancs2 description]
+ * test Swiss Francs again [5, 10, 20, 50]
+ * Total: 235
+ */
     public static void test_SwissFrancs2() {
         int[] swissfrancs2Denominations = new int[] { 5, 10, 20, 50 };
 
@@ -210,7 +235,11 @@ public class ChangeMakerTestHarness {
             displayFailure();
         }
     }
-
+/**
+ * [test_Keckels description]
+ * test Keckles [7, 3, 29, 15, 53]
+ * Total: 100
+ */
     public static void test_Keckels() {
         int[] test_Keckels = new int[] { 7, 3, 29, 15, 53 };
 
@@ -250,7 +279,11 @@ public class ChangeMakerTestHarness {
             displayFailure();
         }
     }
-
+/**
+ * [test_lozOotRupee description]
+ * test Rupees from LoZ OoT [1, 5, 20, 50, 200]
+ * Total: 500
+ */
     public static void test_lozOotRupee() {
         int[] test_lozOotRupee = new int[] { 1, 5, 20, 50, 200 };
 
